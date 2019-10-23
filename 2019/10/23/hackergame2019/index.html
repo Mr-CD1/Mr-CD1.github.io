@@ -26,7 +26,10 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;9.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;10.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;11.PNG">
-<meta property="og:updated_time" content="2019-10-23T04:04:11.604Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;12.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;13.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;14.PNG">
+<meta property="og:updated_time" content="2019-10-23T13:33:02.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;5.PNG">
   
@@ -196,6 +199,7 @@
 <p>4.宇宙终极问题 42<br>百度一下就得到答案了</p>
 <p>5.网页读取器<br><img src="/2019/10/23/hackergame2019/9.PNG" alt="picture1"><br>可以看到源码是这样的，我们需要的网站并不在白名单中，但分析源代码可以看到@在分析之中，即会解析@后面的域名，所以我们可以将地址写成：<br><img src="/2019/10/23/hackergame2019/10.PNG" alt="picture1"><br>得到flag为</p>
 <p><img src="/2019/10/23/hackergame2019/11.PNG" alt="picture1"></p>
+<p>6.达拉崩吧大冒险<br>这题是看了别人的writeup才写出来的，之前也想到过改数据，但没想到让其溢出。<br>一直点send直到到大妈那买鸡，这是关键，因为它能让你变强。<br><img src="/2019/10/23/hackergame2019/12.PNG" alt="picture1"><br>直接修改value=-1，send后发现钱增加了，攻击力却变小了。一直减小输入的value，攻击力也一直变小，所以当减小到一定值时，攻击力会溢出，成为一个很大的数，这时你就能打败巨龙了！<br><img src="/2019/10/23/hackergame2019/13.PNG" alt="picture1"><br>打败巨龙就可以得到flag了<br><img src="/2019/10/23/hackergame2019/14.PNG" alt="picture1"></p>
 
       
 
