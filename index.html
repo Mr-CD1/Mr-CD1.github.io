@@ -180,6 +180,9 @@
 <p>这也是比较简单的题，之间使用<strong>stegsolve</strong>就行了，得到flag</p>
 <p>3.信息安全2077<br>打开就是这个样子，像是倒计时一样。<br><img src="/2019/10/23/hackergame2019/1.PNG" alt="picture1"></p>
 <p>查看它的网络请求，想想肯定是跟时间有关的，查看head里面的Date和Last-Modified<br><img src="/2019/10/23/hackergame2019/2.PNG" alt="picture1"><br>可以看到Last-Modified是在2077年，那我们就让它以为我们是在那个时间点就可以得到本该在2077年得到的flag<br><img src="/2019/10/23/hackergame2019/3.PNG" alt="picture1"><br>可以看到状态码变为200，即得到了响应，响应载荷就是我们要的flag<br><img src="/2019/10/23/hackergame2019/4.PNG" alt="picture1"></p>
+<p>4.宇宙终极问题 42<br>百度一下就得到答案了</p>
+<p>5.网页读取器<br><img src="/2019/10/23/hackergame2019/9.PNG" alt="picture1"><br>可以看到源码是这样的，我们需要的网站并不在白名单中，但分析源代码可以看到@在分析之中，即会解析@后面的域名，所以我们可以将地址写成：<br><img src="/2019/10/23/hackergame2019/10.PNG" alt="picture1"><br>得到flag为</p>
+<p><img src="/2019/10/23/hackergame2019/11.PNG" alt="picture1"></p>
 
       
 
