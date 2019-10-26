@@ -6,14 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://mr-cd1.github.io">
-  <title>DC</title>
+  <title>write-up | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="DC">
-<meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;index.html">
+  <meta name="description" content="##本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(%2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="write-up">
+<meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;index.html">
 <meta property="og:site_name" content="DC">
+<meta property="og:description" content="##本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(%2">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;11.png">
+<meta property="og:updated_time" content="2019-10-26T04:02:23.051Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;Bugku%20web%20write-up&#x2F;1.png">
   
     <link rel="alternative" href="/atom.xml" title="DC" type="application/atom+xml">
   
@@ -149,16 +163,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Bugku web write-up" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Bugku web write-up" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/26/Bugku%20web%20write-up/">write-up</a>
+    <h1 class="article-title" itemprop="name">
+      write-up
     </h1>
   
 
@@ -183,6 +195,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -190,16 +223,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/26/Bugku%20web%20write-up/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://mr-cd1.github.io/2019/10/26/Bugku%20web%20write-up/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PHP Mail注入</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -219,152 +311,14 @@
 
 
 
-
   
-    <article id="post-PHP-Mail注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/">PHP Mail注入</a>
-    </h1>
   
 
-        
-        <a href="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2019-10-23T11:49:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##攻击原理：<br>以下是具有漏洞的代码：<br><img src="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/%E6%BA%90%E4%BB%A3%E7%A0%811.PNG" alt="代码"><br>这段代码的作用：</p>
-<p>1.首先，检查是否填写了邮件输入框<br>2.若未填写输出HTML表单<br>3.若已填写，从表单发送电子邮件<br>4.当填写完表单点击提交按钮后，页面重新载入，可以看到邮件输入被重置，同时显示邮件发送成功的消息  </p>
-<p>以上代码存在的问题就是未授权的用户可通过输入表单在邮件头部插入数据<br>假设用户在表单内输入以下文本：<br><img src="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/2.PNG" alt="文本"><br>mail函数将把上面的文本放入到邮件头部，头部就会有额外的Cc:、Bcc:和To：字段。  (Cc:抄送；Bcc:密送)<br>  <a href="mailto:someone@example.com" target="_blank" rel="noopener">someone@example.com</a>%0ACc:<a href="mailto:person2@example.com" target="_blank" rel="noopener">person2@example.com</a><br> %0ABcc:<a href="mailto:person3@example.com" target="_blank" rel="noopener">person3@example.com</a> 这句会使消息发送到<a href="mailto:person2@example.com" target="_blank" rel="noopener">person2@example.com</a>和person3@example.com。<br>注：<strong>我们在添加一个新的参数之前，必须增加一个换行符分隔每个字段，而换行符的16进制为0x0A</strong></p>
-<p>这样就将恶意的代码注入到了表单中，当用户点击提交按钮后，邮件将会被发送到上面所有的邮箱中。</p>
-<hr>
-<p>##如何防范这样的攻击？<br>这样的攻击就是抓住了未对输入进行验证这个漏洞进行的，所以，最好的办法就是对输入进行验证。<br>对上面的代码加上以下代码就行了：<br><img src="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/3.PNG" alt="文本"><br><strong>注</strong>：filter_var()函数通过指定的过滤器过滤变量<br>在上面，我们使用了PHP过滤器进行验证：<br>1.<strong>FILTER_SANITIZE_EMAIL</strong> 过滤器从字符串中删除电子邮件的非法字符<br>2.<strong>FILTER_VALIDATE_EMAIL</strong> 过滤器验证电子邮件地址的值</p>
-<p><strong>实战演示</strong>：<br><a href="https://www.freebuf.com/articles/web/14918.html" target="_blank" rel="noopener" title="实战演示">https://www.freebuf.com/articles/web/14918.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hackergame2019" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/23/hackergame2019/">hackergame2019</a>
-    </h1>
   
 
-        
-        <a href="/2019/10/23/hackergame2019/" class="archive-article-date">
-  	<time datetime="2019-10-23T02:59:36.755Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HakerGame-Write-Up"><a href="#HakerGame-Write-Up" class="headerlink" title="#HakerGame Write-Up"></a>#HakerGame Write-Up</h2><ol>
-<li>签到题</li>
-</ol>
-<p>看题目，就是要将自己的token复制进框内。复制进去后，发现按钮按不了。<br><img src="/2019/10/23/hackergame2019/5.PNG" alt="picture1"><br>NG )打开F12查看源码，选择按钮的代码<br><img src="/2019/10/23/hackergame2019/6.PNG" alt="picture1"><br><strong>disable</strong>表示按钮不能按，所以删掉这句，得到<br><img src="/2019/10/23/hackergame2019/7.PNG" alt="picture1"></p>
-<p>就可以得到flag<br><img src="/2019/10/23/hackergame2019/8.PNG" alt="picture1"></p>
-<p>2.白与夜</p>
-<p>这也是比较简单的题，之间使用<strong>stegsolve</strong>就行了，得到flag</p>
-<p>3.信息安全2077<br>打开就是这个样子，像是倒计时一样。<br><img src="/2019/10/23/hackergame2019/1.PNG" alt="picture1"></p>
-<p>查看它的网络请求，想想肯定是跟时间有关的，查看head里面的Date和Last-Modified<br><img src="/2019/10/23/hackergame2019/2.PNG" alt="picture1"><br>可以看到Last-Modified是在2077年，那我们就让它以为我们是在那个时间点就可以得到本该在2077年得到的flag<br><img src="/2019/10/23/hackergame2019/3.PNG" alt="picture1"><br>可以看到状态码变为200，即得到了响应，响应载荷就是我们要的flag<br><img src="/2019/10/23/hackergame2019/4.PNG" alt="picture1"></p>
-<p>4.宇宙终极问题 42<br>百度一下就得到答案了</p>
-<p>5.网页读取器<br><img src="/2019/10/23/hackergame2019/9.PNG" alt="picture1"><br>可以看到源码是这样的，我们需要的网站并不在白名单中，但分析源代码可以看到@在分析之中，即会解析@后面的域名，所以我们可以将地址写成：<br><img src="/2019/10/23/hackergame2019/10.PNG" alt="picture1"><br>得到flag为</p>
-<p><img src="/2019/10/23/hackergame2019/11.PNG" alt="picture1"></p>
-<p>6.达拉崩吧大冒险<br>这题是看了别人的writeup才写出来的，之前也想到过改数据，但没想到让其溢出。<br>一直点send直到到大妈那买鸡，这是关键，因为它能让你变强。<br><img src="/2019/10/23/hackergame2019/12.PNG" alt="picture1"><br>直接修改value=-1，send后发现钱增加了，攻击力却变小了。一直减小输入的value，攻击力也一直变小，所以当减小到一定值时，攻击力会溢出，成为一个很大的数，这时你就能打败巨龙了！<br><img src="/2019/10/23/hackergame2019/13.PNG" alt="picture1"><br>打败巨龙就可以得到flag了<br><img src="/2019/10/23/hackergame2019/14.PNG" alt="picture1"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/23/hackergame2019/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -387,8 +341,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
