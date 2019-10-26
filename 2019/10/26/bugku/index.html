@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="https://mr-cd1.github.io">
   <title>write-up | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(%2">
+  <meta name="description" content="##本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(”f">
 <meta property="og:type" content="article">
 <meta property="og:title" content="write-up">
 <meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;index.html">
 <meta property="og:site_name" content="DC">
-<meta property="og:description" content="##本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(%2">
+<meta property="og:description" content="##本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(”f">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;1.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;2.png">
@@ -25,7 +25,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;9.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;10.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;11.png">
-<meta property="og:updated_time" content="2019-10-26T04:02:23.051Z">
+<meta property="og:updated_time" content="2019-10-26T07:58:35.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;1.png">
   
@@ -183,7 +183,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##本地包含<br>这就是一段PHP代码：<br><img src="/2019/10/26/bugku/1.png" alt="源代码"><br>大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。<br>这里使用一个PHP函数file get contents()得到文件的文本内容：<br><a href="http://123.206.87.240:8003/?hello=file_get_contents(%22flag.php%22)" target="_blank" rel="noopener">http://123.206.87.240:8003/?hello=file_get_contents(%22flag.php%22)</a><br>就可以得到答案：<br><img src="/2019/10/26/bugku/2.png" alt="源代码"><br>查看源代码，找到flag：<br><img src="/2019/10/26/bugku/3.png" alt="源代码">    </p>
+        <p>##本地包含<br>这就是一段PHP代码：<br><img src="/2019/10/26/bugku/1.png" alt="源代码"><br>大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。<br>这里使用一个PHP函数file get contents()得到文件的文本内容：<br><a href="http://123.206.87.240:8003/?hello=file_get_contents(”flag.php“)" target="_blank" rel="noopener">http://123.206.87.240:8003/?hello=file_get_contents(”flag.php“)</a><br>就可以得到答案：<br><img src="/2019/10/26/bugku/2.png" alt="源代码"><br>查看源代码，找到flag：<br><img src="/2019/10/26/bugku/3.png" alt="源代码">    </p>
 <p>##变量<br><img src="/2019/10/26/bugku/4.png" alt="源代码"><br>这段代码没什么特别之处，传参给args，然后再返回args。题目是变量，说明flag在变量之中。所以我们可以用超级全局变量GLOBAL得到所有的变量。（$GLOBAL是一个包含了全部变量的全局组合数组，变量的名字就是数组的键）<br><a href="http://123.206.87.240:8004/index1.php?args=GLOBALS" target="_blank" rel="noopener">http://123.206.87.240:8004/index1.php?args=GLOBALS</a><br>就得到了flag<br><img src="/2019/10/26/bugku/5.png" alt="源代码"></p>
 <p>##头等舱<br>点进去除了几个字什么也没有。直接用burpsuit进行抓包即可。会得到一个target，target里面的response就是flag<br><img src="/2019/10/26/bugku/6.png" alt="源代码"></p>
 <p>##网站被黑</p>
@@ -191,6 +191,7 @@
 <p>##falg在index里</p>
 <p>##输入密码查看flag<br>网址的名字就提示我们要对其进行爆破<br>因为是5位的密码长度，我们随便输入5位的数字进行抓包<br>再根据输入的条件设置爆破的参数，直接进行爆破就行了<br>最后得到密码：13579<br>输入即可得到flag：<br><img src="/2019/10/26/bugku/8.png" alt="源代码"></p>
 <p>##备份是个好习惯<br>备份文件的后缀名通常是bak,且我们知道网页默认返回给我们的是index.php文件。所以我们尝试在文件后面加上备份文件后缀。<br><img src="/2019/10/26/bugku/9.png" alt="源代码"><br>得到了一个文件<br><img src="/2019/10/26/bugku/10.png" alt="源代码"><br>这段代码的意思就是将get到的参数中的key替换为空，然后进行MD5加密。只有当加密结果相同且原值不同的情况下就输出flag。<br>查找md5函数的语法，发现只有当输入为字符串时函数才有效，要不然会返回NULL。我们可以利用这个机制进行绕开。当输入为数组时，输出为NULL，所以将参数都设定为数组，这样它们的值就总是相等。<br><a href="http://123.206.87.240:8002/web16/index.php?kkeyey1[]=1&amp;kkeyey2[]=2" target="_blank" rel="noopener">http://123.206.87.240:8002/web16/index.php?kkeyey1[]=1&amp;kkeyey2[]=2</a><br>其中kkeyey是为了绕开<strong>$str = str_replace(‘key’,’’,$str);</strong><br>这样就可以得到flag了：<br><img src="/2019/10/26/bugku/11.png" alt="源代码">  </p>
+<p>##学生成绩查询</p>
 
       
 
