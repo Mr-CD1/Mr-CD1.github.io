@@ -8,17 +8,26 @@
   <link rel="dns-prefetch" href="https://mr-cd1.github.io">
   <title>write-up | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="隐写打开图片：没发现什么有用的信息用winhex打开：是一张PNG图片，检查格式也没有问题。所以应该flag就在图像里面再看以下图像的其他属性，可能是高宽不对。修改高为宽的高度即可得到完整的图像：">
+  <meta name="description" content="隐写打开图片：没发现什么有用的信息用winhex打开：是一张PNG图片，检查格式也没有问题。所以应该flag就在图像里面再看以下图像的其他属性，可能是高宽不对。修改高为宽的高度即可得到完整的图像： telnet打开文件发现后缀名是pcap，是常用的数据报存储格式。查找了一下，这里我们可以用wireshark打开：再追踪TCP流就可以得到flag了： 眼见非实打开文件，是一个后缀名为docx的文件，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="write-up">
 <meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;index.html">
 <meta property="og:site_name" content="DC">
-<meta property="og:description" content="隐写打开图片：没发现什么有用的信息用winhex打开：是一张PNG图片，检查格式也没有问题。所以应该flag就在图像里面再看以下图像的其他属性，可能是高宽不对。修改高为宽的高度即可得到完整的图像：">
+<meta property="og:description" content="隐写打开图片：没发现什么有用的信息用winhex打开：是一张PNG图片，检查格式也没有问题。所以应该flag就在图像里面再看以下图像的其他属性，可能是高宽不对。修改高为宽的高度即可得到完整的图像： telnet打开文件发现后缀名是pcap，是常用的数据报存储格式。查找了一下，这里我们可以用wireshark打开：再追踪TCP流就可以得到flag了： 眼见非实打开文件，是一个后缀名为docx的文件，">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;1.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;2.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;3.png">
-<meta property="og:updated_time" content="2019-10-27T09:19:42.358Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;11.png">
+<meta property="og:updated_time" content="2019-10-27T12:32:48.589Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;27&#x2F;bugku-misc&#x2F;1.png">
   
@@ -177,6 +186,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="隐写"><a href="#隐写" class="headerlink" title="隐写"></a>隐写</h2><p>打开图片：<br><img src="/2019/10/27/bugku-misc/1.png" alt="picture1"><br>没发现什么有用的信息<br>用winhex打开：<br><img src="/2019/10/27/bugku-misc/2.png" alt="picture1"><br>是一张PNG图片，检查格式也没有问题。<br>所以应该flag就在图像里面<br>再看以下图像的其他属性，可能是高宽不对。修改高为宽的高度即可得到完整的图像：<br><img src="/2019/10/27/bugku-misc/3.png" alt="picture1"></p>
+<h2 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h2><p>打开文件发现后缀名是pcap，是常用的数据报存储格式。查找了一下，这里我们可以用wireshark打开：<br><img src="/2019/10/27/bugku-misc/4.png" alt="picture1"><br>再追踪TCP流就可以得到flag了：<br><img src="/2019/10/27/bugku-misc/5.png" alt="picture1"></p>
+<h2 id="眼见非实"><a href="#眼见非实" class="headerlink" title="眼见非实"></a>眼见非实</h2><p>打开文件，是一个后缀名为docx的文件，打开，发现不对。提示要修复文档，所以应该文件后缀名被改了。再把它放进winhex里去：<br><img src="/2019/10/27/bugku-misc/6.png" alt="picture1"><br>得到它的文件头为 50 4B 03 04 ，查一下常见的文件头形式，就可以找到该文件应该是zip文件。该后缀，解压，得到一个文件夹。在文件夹里面有一个document.xml的文件，打开就可以得到flag了：<br><img src="/2019/10/27/bugku-misc/7.png" alt="picture1"></p>
+<p>##啊哒<br>打开文件，是一个图片。<br>用winhex打开，审视一下文本，查找一下flag可以找到一个flag.txt。猜想可能有一个flag的文本在图片里面，在linux里面用foremost命令分离文件：<br><img src="/2019/10/27/bugku-misc/8.png" alt="picture1"><br>在output里面可以找到一个压缩包，我们对其进行解压：<br><img src="/2019/10/27/bugku-misc/9.png" alt="picture1"><br>得到flag.txt，需要输入密码。我们再查看一下图片的属性：<br><img src="/2019/10/27/bugku-misc/10.png" alt="picture1"><br>有一串照相机型号，输入这个型号，不过是错误的密码。应该是对其进行了编码，再对其进行hex编码：<br><img src="/2019/10/27/bugku-misc/12.png" alt="picture1"><br>得到密码，输入即可得到flag：<br><img src="/2019/10/27/bugku-misc/11.png" alt="picture1"></p>
 
       
 
