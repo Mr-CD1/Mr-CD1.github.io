@@ -36,7 +36,11 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;20.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;21.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;22.PNG">
-<meta property="og:updated_time" content="2019-10-27T03:57:14.659Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;23.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;24.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;25.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;26.PNG">
+<meta property="og:updated_time" content="2019-10-27T05:11:16.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;1.PNG">
   
@@ -206,6 +210,7 @@
 <p>c.变量$id若想满足非空非零且等于0，值只能为非空非零的字符串，随便取一个非空字符串即可</p>
 <p>这样，我们可以构造url来获取flag：<br><strong><a href="http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345" target="_blank" rel="noopener">http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345</a></strong><br>然后在请求主体中添加data需要的值即可：<br><img src="/2019/10/26/bugku/18.PNG" alt="源代码"><br>发送就可以得到flag：<br><img src="/2019/10/26/bugku/19.PNG" alt="源代码">  </p>
 <h2 id="字符？正则？"><a href="#字符？正则？" class="headerlink" title="字符？正则？"></a>字符？正则？</h2><p><img src="/2019/10/26/bugku/20.PNG" alt="源代码"><br>很明显，这就是关于正则表达式的一道题。<br>只要将id匹配成需要的字符串就可以得到flag<br><strong>正则的要求</strong>：<br>1.‘.’表示任意的字符<br>2.‘*’表示出现零次或更多次<br>3.{4，7}：表示前一个字符出现4到7次<br>4./：表示/<br>5.[a-z]:表示a到z中的任意一个字符<br>6.[:punct:]:表示任意符号<br>7./i：表示不区分大小写<br>所以我们就可以直接对url进行构造了：<br><img src="/2019/10/26/bugku/21.PNG" alt="源代码"><br>得到flag：<br><img src="/2019/10/26/bugku/22.PNG" alt="源代码"> </p>
+<p>##前女友(SKCTF)<br><img src="/2019/10/26/bugku/23.PNG" alt="源代码"><br>进来就是一段文字，没什么特别的。<br>打开F12，可以发现一个链接，打开链接：<br><img src="/2019/10/26/bugku/24.PNG" alt="源代码"><br>发现一段PHP代码，大概的意思就是取v1、v2、v3，v1不等于v2但MD5（v1）==MD5（v2）且v3等于flag。<br>v1、v2很容易得出来，前面已有类似的题。<br>而v3的话，我们可以查找以下strcmp函数的漏洞，发现其在对一个数组和一个字符串比较的时候会返回0，所以我们令v3为一个数组就行了。<br>构造url；<br><img src="/2019/10/26/bugku/25.PNG" alt="源代码"><br>得到falg：<br><img src="/2019/10/26/bugku/26.PNG" alt="源代码"></p>
 
       
 
@@ -309,6 +314,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/10/27/bugku%20misc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          write-up
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/" id="article-nav-older" class="article-nav-link-wrap">
