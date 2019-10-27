@@ -9,6 +9,7 @@
   <title>bugku web write-up | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(”fla">
+<meta name="keywords" content="bugku web write-up">
 <meta property="og:type" content="article">
 <meta property="og:title" content="bugku web write-up">
 <meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;index.html">
@@ -30,9 +31,12 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;15.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;16.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;17.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;17.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;18.PNG">
-<meta property="og:updated_time" content="2019-10-26T13:55:37.625Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;19.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;20.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;21.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;22.PNG">
+<meta property="og:updated_time" content="2019-10-27T03:57:14.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;1.PNG">
   
@@ -195,12 +199,13 @@
 <h2 id="头等舱"><a href="#头等舱" class="headerlink" title="头等舱"></a>头等舱</h2><p>点进去除了几个字什么也没有。直接用burpsuit进行抓包即可。会得到一个target，target里面的response就是flag<br><img src="/2019/10/26/bugku/6.PNG" alt="源代码"></p>
 <h2 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h2><h2 id="管理员系统"><a href="#管理员系统" class="headerlink" title="管理员系统"></a>管理员系统</h2><h2 id="falg在index里"><a href="#falg在index里" class="headerlink" title="falg在index里"></a>falg在index里</h2><h2 id="输入密码查看flag"><a href="#输入密码查看flag" class="headerlink" title="输入密码查看flag"></a>输入密码查看flag</h2><p>网址的名字就提示我们要对其进行爆破<br>因为是5位的密码长度，我们随便输入5位的数字进行抓包<br>再根据输入的条件设置爆破的参数，直接进行爆破就行了<br>最后得到密码：13579<br>输入即可得到flag：<br><img src="/2019/10/26/bugku/8.PNG" alt="源代码"></p>
 <h2 id="备份是个好习惯"><a href="#备份是个好习惯" class="headerlink" title="备份是个好习惯"></a>备份是个好习惯</h2><p>备份文件的后缀名通常是bak,且我们知道网页默认返回给我们的是index.php文件。所以我们尝试在文件后面加上备份文件后缀。<br><img src="/2019/10/26/bugku/9.PNG" alt="源代码"><br>得到了一个文件<br><img src="/2019/10/26/bugku/10.PNG" alt="源代码"><br>这段代码的意思就是将get到的参数中的key替换为空，然后进行MD5加密。只有当加密结果相同且原值不同的情况下就输出flag。<br>查找md5函数的语法，发现只有当输入为字符串时函数才有效，要不然会返回NULL。我们可以利用这个机制进行绕开。当输入为数组时，输出为NULL，所以将参数都设定为数组，这样它们的值就总是相等。<br><a href="http://123.206.87.240:8002/web16/index.php?kkeyey1[]=1&amp;kkeyey2[]=2" target="_blank" rel="noopener">http://123.206.87.240:8002/web16/index.php?kkeyey1[]=1&amp;kkeyey2[]=2</a><br>其中kkeyey是为了绕开<strong>$str = str_replace(‘key’,’’,$str);</strong><br>这样就可以得到flag了：<br><img src="/2019/10/26/bugku/11.PNG" alt="源代码">  </p>
-<h2 id="学生成绩查询"><a href="#学生成绩查询" class="headerlink" title="学生成绩查询"></a>学生成绩查询</h2><h2 id="never-give-up"><a href="#never-give-up" class="headerlink" title="never give up"></a>never give up</h2><p><img src="/2019/10/26/bugku/13.PNG" alt="源代码"><br>打开F12，可以看到提示：<br><img src="/2019/10/26/bugku/14.PNG" alt="源代码"><br>查看源代码<br><img src="/2019/10/26/bugku/15.PNG" alt="源代码">  ，可以看到一个似乎加密了的代码，即word，经过base64解码得到一串代码：<br><img src="/2019/10/26/bugku/16.PNG" alt="源代码"><br>代码分析：<br>这段是最主要的代码，看到会返回一个txt文件，应该就是flag的位置<br><img src="/2019/10/26/bugku/17.PNG" alt="源代码"><br>要满足的条件：<br>1.data为“bugku is a nice plateform”<br>2.id==0<br>3.b的长度大于5且“111”加上b的第一个元素为“1114”且b的首元素为<br>4</p>
+<h2 id="学生成绩查询"><a href="#学生成绩查询" class="headerlink" title="学生成绩查询"></a>学生成绩查询</h2><h2 id="never-give-up"><a href="#never-give-up" class="headerlink" title="never give up"></a>never give up</h2><p><img src="/2019/10/26/bugku/13.PNG" alt="源代码"><br>打开F12，可以看到提示：<br><img src="/2019/10/26/bugku/14.PNG" alt="源代码"><br>查看源代码<br><img src="/2019/10/26/bugku/15.PNG" alt="源代码">  ，可以看到一个似乎加密了的代码，即word，经过base64解码得到一串代码：<br><img src="/2019/10/26/bugku/16.PNG" alt="源代码"><br>代码分析：<br>1.第一行要求了b为非空非零<br>2.stripos($a,’.’)规定了a不能含有字符串<br><img src="/2019/10/26/bugku/17.PNG" alt="源代码"><br>要满足的条件：<br>1.data为“bugku is a nice plateform”<br>2.id==0<br>3.b的长度大于5且“111”加上b的第一个元素为“1114”且b的首元素为<br>4</p>
 <p>我们要对参数进行改变进行绕过：  </p>
 <p>a.对于data来说，data变量是由a得到的，所以要将“bugku is a nice plateform”传给a。这里我们利用伪协议php://来访问输入输出的数据流。所以用a=php://input，然后在请求主体中提交字符串</p>
 <p>b.查看eregi()函数发现其有一个漏洞，会截断%00的字符串，这样b开头就不是4也可以满足“111“+b[0]=”1114”,所以可以令b=%002345</p>
 <p>c.变量$id若想满足非空非零且等于0，值只能为非空非零的字符串，随便取一个非空字符串即可</p>
-<p>这样，我们可以构造url来获取flag：<br><strong><a href="http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345" target="_blank" rel="noopener">http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345</a></strong><br>然后在请求主体中添加data需要的值即可：<br><img src="/2019/10/26/bugku/17.PNG" alt="源代码"><br>发送就可以得到flag：<br><img src="/2019/10/26/bugku/18.PNG" alt="源代码">  </p>
+<p>这样，我们可以构造url来获取flag：<br><strong><a href="http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345" target="_blank" rel="noopener">http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345</a></strong><br>然后在请求主体中添加data需要的值即可：<br><img src="/2019/10/26/bugku/18.PNG" alt="源代码"><br>发送就可以得到flag：<br><img src="/2019/10/26/bugku/19.PNG" alt="源代码">  </p>
+<h2 id="字符？正则？"><a href="#字符？正则？" class="headerlink" title="字符？正则？"></a>字符？正则？</h2><p><img src="/2019/10/26/bugku/20.PNG" alt="源代码"><br>很明显，这就是关于正则表达式的一道题。<br>只要将id匹配成需要的字符串就可以得到flag<br><strong>正则的要求</strong>：<br>1.‘.’表示任意的字符<br>2.‘*’表示出现零次或更多次<br>3.{4，7}：表示前一个字符出现4到7次<br>4./：表示/<br>5.[a-z]:表示a到z中的任意一个字符<br>6.[:punct:]:表示任意符号<br>7./i：表示不区分大小写<br>所以我们就可以直接对url进行构造了：<br><img src="/2019/10/26/bugku/21.PNG" alt="源代码"><br>得到flag：<br><img src="/2019/10/26/bugku/22.PNG" alt="源代码"> </p>
 
       
 
@@ -230,6 +235,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">bugku web write-up</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -420,6 +436,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
