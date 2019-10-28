@@ -151,6 +151,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-PHP伪协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/">PHP伪协议</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
+  	<time datetime="2019-10-27T15:22:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-PHP伪协议是什么？"><a href="#1-PHP伪协议是什么？" class="headerlink" title="1.PHP伪协议是什么？"></a>1.PHP伪协议是什么？</h2><p>PHP伪协议实际上就是支持的协议与封装协议</p>
+<h2 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h2><p>a.file:// ——访问本地文件系统<br>b.http://——访问HTTP(S)网址<br>c.ftp://——访问FTP(s)的URL<br>d.php://——访问各个输入、输出流<br>e.zlib://——压缩流<br>f.data://——数据<br>g.glob://——查找匹配的文件路径模式<br>h.phar://——PHP归档<br>i. ssh2:// — Secure Shell 2<br>j. rar:// — RAR<br>k. ogg:// — 音频流<br>l. expect:// — 处理交互式的流</p>
+<h2 id="3-环境概要"><a href="#3-环境概要" class="headerlink" title="3.环境概要"></a>3.环境概要</h2><p>PHP.ini:<br><strong>allow_url_fopen:on</strong>默认开启，激活了URL形式的fopen封装协议使得可以访问URL对象文件等<br><strong>allow_url_include:off</strong>  默认关闭，禁止引用URL文件</p>
+<h2 id="00X1-file"><a href="#00X1-file" class="headerlink" title="00X1 file://"></a>00X1 file://</h2><p><strong>说明</strong>：访问本地系统文件。<br>文件系统是PHP使用的默认封装协议，展现了本地文件系统。<br><strong>使用方法</strong>：file://[文件的绝对路径和文件名]<br><strong>封装协议概要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/2.PNG" alt="picture1"></p>
+<h2 id="00X2-http"><a href="#00X2-http" class="headerlink" title="00X2     http://"></a>00X2     http://</h2><p><strong>说明</strong>：访问HTTP网址<br><strong>封装协议概要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/3.PNG" alt="picture1"></p>
+<h2 id="00X3-ftp"><a href="#00X3-ftp" class="headerlink" title="00X3 ftp://"></a>00X3 ftp://</h2><p><strong>说明</strong>：允许通过FTP读取存在的文件，以及创建新的文件。打开文件后，既可以读也可以写，但不能同时进行。<br><strong>用法</strong>：<a href="ftp://example.com/pub/file.txt" target="_blank" rel="noopener">ftp://example.com/pub/file.txt</a><br><a href="ftp://user:password@example.com/pub/file.txt" target="_blank" rel="noopener">ftp://user:password@example.com/pub/file.txt</a><br><strong>封装协议概要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/4.PNG" alt="picture1"></p>
+<h2 id="00X4-php"><a href="#00X4-php" class="headerlink" title="00X4 php://"></a>00X4 php://</h2><p><strong>说明</strong>：PHP 提供了一些杂项输入/输出（IO）流，允许访问 PHP 的输入输出流、标准输入输出和错误描述符， 内存中、磁盘备份的临时文件流以及可以操作其他读取写入文件资源的过滤器。 </p>
+<h3 id="a-php-stdin、php-stdout、php-stderr"><a href="#a-php-stdin、php-stdout、php-stderr" class="headerlink" title="a.php://stdin、php://stdout、php://stderr"></a>a.php://stdin、php://stdout、php://stderr</h3><p>允许直接访问PHP进程相应的输入或输出流。<br>php://stdin是只读；php://stdout和php://stderr是只写的</p>
+<h3 id="b-php-input"><a href="#b-php-input" class="headerlink" title="b.php://input"></a>b.php://input</h3><p>访问<strong>请求</strong>的原始数据的只读流。（针对POST请求）</p>
+<h3 id="c-php-output"><a href="#c-php-output" class="headerlink" title="c.php://output"></a>c.php://output</h3><p>只写的数据流，允许以<strong>print</strong>和<strong>echo</strong>一样的方式写入到输出缓冲区</p>
+<h3 id="d-php-fd"><a href="#d-php-fd" class="headerlink" title="d.php://fd"></a>d.php://fd</h3><p>允许直接访问指定的文件描述符。如php://fd/3引用了文件描述符3</p>
+<h3 id="e-php-filter"><a href="#e-php-filter" class="headerlink" title="e.php://filter"></a>e.php://filter</h3><p>是一种元封装器，设计用于数据流打开时的筛选过滤应用。<br>参数：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/5.PNG" alt="picture1"></p>
+<h3 id="封装协议摘要"><a href="#封装协议摘要" class="headerlink" title="封装协议摘要"></a>封装协议摘要</h3><p><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/6.PNG" alt="picture1"></p>
+<h2 id="00X5-zlib-–bzip2-–zip"><a href="#00X5-zlib-–bzip2-–zip" class="headerlink" title="00X5 zlib://–bzip2://–zip://"></a>00X5 zlib://–bzip2://–zip://</h2><p><strong>用法</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/7.PNG" alt="picture1"><br>zip://[文件路径和文件名]<br><strong>封装协议摘要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/8.PNG" alt="picture1"></p>
+<p><a href="https://www.php.net/manual/zh/wrappers.php" target="_blank" rel="noopener" title="官方参考手册">https://www.php.net/manual/zh/wrappers.php</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-bugku-misc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
