@@ -335,6 +335,10 @@
 <h2 id="你从哪里来"><a href="#你从哪里来" class="headerlink" title="你从哪里来"></a>你从哪里来</h2><p><img src="/2019/10/26/bugku/32.PNG" alt="源代码"><br>应该是让我们用google进入网址，但是用google试了一下没什么区别。应该是要修改请求头里面的信息来让它认为我们是从google来的。我们可以修改referer的值为 <a href="https://www.google.com" target="_blank" rel="noopener">https://www.google.com</a><br><img src="/2019/10/26/bugku/33.PNG" alt="源代码"><br>重新发送，得到flag：<br><img src="/2019/10/26/bugku/34.PNG" alt="源代码"></p>
 <h2 id="md5-collision-NUPT-CTF"><a href="#md5-collision-NUPT-CTF" class="headerlink" title="md5 collision(NUPT_CTF)"></a>md5 collision(NUPT_CTF)</h2><p><img src="/2019/10/26/bugku/35.PNG" alt="源代码"><br>题目的意思就是MD5碰撞，要求以a传值。<br>直接查找常见的MD5碰撞值就可以了：<br><img src="/2019/10/26/bugku/36.PNG" alt="源代码"><br>随便输入一个就可以得到flag了：<br><img src="/2019/10/26/bugku/37.PNG" alt="源代码"></p>
 <p>##程序员本地网站<br><img src="/2019/10/26/bugku/38.PNG" alt="源代码"><br>提示要从本地进行访问，可以通过添加XFF（X-Forwarded-For）发送请求，XFF是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br>添加X-Forwarded-For: 127.0.0.1：<br><img src="/2019/10/26/bugku/39.PNG" alt="源代码"><br>再发送，就得到了flag：<br><img src="/2019/10/26/bugku/40.PNG" alt="源代码"></p>
+<p>##各种绕过<br><img src="/2019/10/26/bugku/41.PNG" alt="源代码"><br>代码的大概意思就是要让uname和passwd的类型相同但值不同，且sha1($_GET[‘uname’])==sha1($_POST[‘passwd’])<br>这跟MD5的绕过类似：让其为数组即可<br><img src="/2019/10/26/bugku/42.PNG" alt="源代码"><br>就可以得到flag：<br><img src="/2019/10/26/bugku/43.PNG" alt="源代码"></p>
+<p>##web8<br><img src="/2019/10/26/bugku/44.PNG" alt="源代码"><br>需要让ac和fn相同，则我们可以向其传相同的值，其中fn为file，所以通过php://input输入：<br><img src="/2019/10/26/bugku/45.PNG" alt="源代码"><br>编辑请求主体为和ac一样的值：<br><img src="/2019/10/26/bugku/46.PNG" alt="源代码"><br>发送，得到flag：<br><img src="/2019/10/26/bugku/47.PNG" alt="源代码"></p>
+<p>看别人的writeup，发现还有一种方法。<br>题目提示为txt，猜可能有一个flag.txt的文件：<br><img src="/2019/10/26/bugku/48.PNG" alt="源代码"><br>内容为flags，所以就可以令a=flags，fn为flag.txt：<br><img src="/2019/10/26/bugku/49.PNG" alt="源代码"><br>同样可以得到flag：<br><img src="/2019/10/26/bugku/50.PNG" alt="源代码"></p>
+<p>##</p>
 
       
 
