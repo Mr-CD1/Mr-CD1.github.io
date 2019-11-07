@@ -151,6 +151,72 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-新生赛writeup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/">新生赛writeup</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/" class="archive-article-date">
+  	<time datetime="2019-11-02T07:02:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="san-check"><a href="#san-check" class="headerlink" title="san check"></a>san check</h2><p><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/1.png" alt="picture1"><br>直接输入</p>
+<h2 id="littleRSA"><a href="#littleRSA" class="headerlink" title="littleRSA"></a>littleRSA</h2><p>文本就给了你flag，直接输入即可</p>
+<h2 id="Check-in"><a href="#Check-in" class="headerlink" title="Check in"></a>Check in</h2><p>在源代码里面可以找到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/2.png" alt="picture1"><br>进行base64编码：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/3.png" alt="picture1"><br>就得到了flag</p>
+<h2 id="ez-LFI"><a href="#ez-LFI" class="headerlink" title="ez LFI"></a>ez LFI</h2><p>给了一个提示：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/4.png" alt="picture1"><br>进入文件但不能得到flag：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/5.png" alt="picture1"><br>那我们就用php://filter来读取文件：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/6.png" alt="picture1"><br>得到一串编码:<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/7.png" alt="picture1"><br>对其进行base64编码得到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/8.png" alt="picture1"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-透明代理、正向代理、反向代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -759,10 +825,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">PHP伪协议</a>
               </li>
              
@@ -776,6 +838,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
               </li>
             
             <div class="clearfix"></div>
