@@ -6,67 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://mr-cd1.github.io">
-  <title>bugku web write-up | DC</title>
+  <title>base64 隐写 | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(”fla">
-<meta name="keywords" content="bugku web write-up">
+  <meta name="description" content="base64 基本原理通过64个字符来表示二进制数据的方法，包含的字符有：a-z \A-Z \0-9 + &#x2F;还包括一种填充字符“=” 规则1.把三个字节变成4个字节2.每76个字节加一个换行符3.最后的结束符也要处理 转换表例">
+<meta name="keywords" content="base64 隐写">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bugku web write-up">
-<meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;index.html">
+<meta property="og:title" content="base64 隐写">
+<meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;base64-%E9%9A%90%E5%86%99&#x2F;index.html">
 <meta property="og:site_name" content="DC">
-<meta property="og:description" content="本地包含这就是一段PHP代码：大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。这里使用一个PHP函数file get contents()得到文件的文本内容：http:&#x2F;&#x2F;123.206.87.240:8003&#x2F;?hello=file_get_contents(”fla">
+<meta property="og:description" content="base64 基本原理通过64个字符来表示二进制数据的方法，包含的字符有：a-z \A-Z \0-9 + &#x2F;还包括一种填充字符“=” 规则1.把三个字节变成4个字节2.每76个字节加一个换行符3.最后的结束符也要处理 转换表例">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;1.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;2.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;3.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;4.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;5.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;6.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;27.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;28.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;29.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;30.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;31.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;8.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;9.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;10.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;11.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;13.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;14.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;15.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;16.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;17.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;18.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;19.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;20.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;21.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;22.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;23.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;24.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;25.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;26.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;32.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;33.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;34.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;35.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;36.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;37.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;38.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;39.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;40.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;41.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;42.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;43.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;44.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;45.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;46.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;47.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;48.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;49.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;50.PNG">
-<meta property="og:updated_time" content="2019-10-30T09:39:34.460Z">
+<meta property="og:updated_time" content="2019-11-07T12:52:44.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="DC" type="application/atom+xml">
   
@@ -202,48 +153,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-bugku" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-base64-隐写" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      bugku web write-up
+      base64 隐写
     </h1>
   
 
         
-        <a href="/2019/10/26/bugku/" class="archive-article-date">
-  	<time datetime="2019-10-26T00:59:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-26</time>
+        <a href="/2019/11/07/base64-%E9%9A%90%E5%86%99/" class="archive-article-date">
+  	<time datetime="2019-11-07T12:14:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="本地包含"><a href="#本地包含" class="headerlink" title="本地包含"></a>本地包含</h2><p>这就是一段PHP代码：<br><img src="/2019/10/26/bugku/1.PNG" alt="源代码"><br>大概意思就是a接收一个赋值hello，然后再输出。而include flag.php意味着flag就在这个文件中。所以我们可以将文件的内容赋值给hello，通过它将文件内容返回。<br>这里使用一个PHP函数file get contents()得到文件的文本内容：<br><a href="http://123.206.87.240:8003/?hello=file_get_contents(”flag.php“)" target="_blank" rel="noopener">http://123.206.87.240:8003/?hello=file_get_contents(”flag.php“)</a><br>就可以得到答案：<br><img src="/2019/10/26/bugku/2.PNG" alt="源代码"><br>查看源代码，找到flag：<br><img src="/2019/10/26/bugku/3.PNG" alt="源代码">    </p>
-<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p><img src="/2019/10/26/bugku/4.PNG" alt="源代码"><br>这段代码没什么特别之处，传参给args，然后再返回args。题目是变量，说明flag在变量之中。所以我们可以用超级全局变量GLOBAL得到所有的变量。（$GLOBAL是一个包含了全部变量的全局组合数组，变量的名字就是数组的键）<br><a href="http://123.206.87.240:8004/index1.php?args=GLOBALS" target="_blank" rel="noopener">http://123.206.87.240:8004/index1.php?args=GLOBALS</a><br>就得到了flag<br><img src="/2019/10/26/bugku/5.PNG" alt="源代码"></p>
-<h2 id="头等舱"><a href="#头等舱" class="headerlink" title="头等舱"></a>头等舱</h2><p>点进去除了几个字什么也没有。直接用burpsuit进行抓包即可。会得到一个target，target里面的response就是flag<br><img src="/2019/10/26/bugku/6.PNG" alt="源代码"></p>
-<h2 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h2><h2 id="管理员系统"><a href="#管理员系统" class="headerlink" title="管理员系统"></a>管理员系统</h2><h2 id="falg在index里"><a href="#falg在index里" class="headerlink" title="falg在index里"></a>falg在index里</h2><p>点进去，看到网页：<br><img src="/2019/10/26/bugku/27.PNG" alt="源代码"><br>点击得到：<br><img src="/2019/10/26/bugku/28.PNG" alt="源代码"><br>这应该是一个文件包含漏洞，所以用php://filter来读取文件：<br><img src="/2019/10/26/bugku/29.PNG" alt="源代码"><br>得到一串编码：<br><img src="/2019/10/26/bugku/30.PNG" alt="源代码"><br>对其进行base64编码就可以得到flag了：<br><img src="/2019/10/26/bugku/31.PNG" alt="源代码"></p>
-<h2 id="输入密码查看flag"><a href="#输入密码查看flag" class="headerlink" title="输入密码查看flag"></a>输入密码查看flag</h2><p>网址的名字就提示我们要对其进行爆破<br>因为是5位的密码长度，我们随便输入5位的数字进行抓包<br>再根据输入的条件设置爆破的参数，直接进行爆破就行了<br>最后得到密码：13579<br>输入即可得到flag：<br><img src="/2019/10/26/bugku/8.PNG" alt="源代码"></p>
-<h2 id="备份是个好习惯"><a href="#备份是个好习惯" class="headerlink" title="备份是个好习惯"></a>备份是个好习惯</h2><p>备份文件的后缀名通常是bak,且我们知道网页默认返回给我们的是index.php文件。所以我们尝试在文件后面加上备份文件后缀。<br><img src="/2019/10/26/bugku/9.PNG" alt="源代码"><br>得到了一个文件<br><img src="/2019/10/26/bugku/10.PNG" alt="源代码"><br>这段代码的意思就是将get到的参数中的key替换为空，然后进行MD5加密。只有当加密结果相同且原值不同的情况下就输出flag。<br>查找md5函数的语法，发现只有当输入为字符串时函数才有效，要不然会返回NULL。我们可以利用这个机制进行绕开。当输入为数组时，输出为NULL，所以将参数都设定为数组，这样它们的值就总是相等。<br><a href="http://123.206.87.240:8002/web16/index.php?kkeyey1[]=1&amp;kkeyey2[]=2" target="_blank" rel="noopener">http://123.206.87.240:8002/web16/index.php?kkeyey1[]=1&amp;kkeyey2[]=2</a><br>其中kkeyey是为了绕开<strong>$str = str_replace(‘key’,’’,$str);</strong><br>这样就可以得到flag了：<br><img src="/2019/10/26/bugku/11.PNG" alt="源代码">  </p>
-<h2 id="学生成绩查询"><a href="#学生成绩查询" class="headerlink" title="学生成绩查询"></a>学生成绩查询</h2><h2 id="never-give-up"><a href="#never-give-up" class="headerlink" title="never give up"></a>never give up</h2><p><img src="/2019/10/26/bugku/13.PNG" alt="源代码"><br>打开F12，可以看到提示：<br><img src="/2019/10/26/bugku/14.PNG" alt="源代码"><br>查看源代码<br><img src="/2019/10/26/bugku/15.PNG" alt="源代码">  ，可以看到一个似乎加密了的代码，即word，经过base64解码得到一串代码：<br><img src="/2019/10/26/bugku/16.PNG" alt="源代码"><br>代码分析：<br>1.第一行要求了b为非空非零<br>2.stripos($a,’.’)规定了a不能含有字符串<br><img src="/2019/10/26/bugku/17.PNG" alt="源代码"><br>要满足的条件：<br>1.data为“bugku is a nice plateform”<br>2.id==0<br>3.b的长度大于5且“111”加上b的第一个元素为“1114”且b的首元素为<br>4</p>
-<p>我们要对参数进行改变进行绕过：  </p>
-<p>a.对于data来说，data变量是由a得到的，所以要将“bugku is a nice plateform”传给a。这里我们利用伪协议php://来访问输入输出的数据流。所以用a=php://input，然后在请求主体中提交字符串</p>
-<p>b.查看eregi()函数发现其有一个漏洞，会截断%00的字符串，这样b开头就不是4也可以满足“111“+b[0]=”1114”,所以可以令b=%002345</p>
-<p>c.变量$id若想满足非空非零且等于0，值只能为非空非零的字符串，随便取一个非空字符串即可</p>
-<p>这样，我们可以构造url来获取flag：<br><strong><a href="http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345" target="_blank" rel="noopener">http://123.206.87.240:8006/test/hello.php?id=abc&amp;a=php://input&amp;b=%0012345</a></strong><br>然后在请求主体中添加data需要的值即可：<br><img src="/2019/10/26/bugku/18.PNG" alt="源代码"><br>发送就可以得到flag：<br><img src="/2019/10/26/bugku/19.PNG" alt="源代码">  </p>
-<h2 id="字符？正则？"><a href="#字符？正则？" class="headerlink" title="字符？正则？"></a>字符？正则？</h2><p><img src="/2019/10/26/bugku/20.PNG" alt="源代码"><br>很明显，这就是关于正则表达式的一道题。<br>只要将id匹配成需要的字符串就可以得到flag<br><strong>正则的要求</strong>：<br>1.‘.’表示任意的字符<br>2.‘*’表示出现零次或更多次<br>3.{4，7}：表示前一个字符出现4到7次<br>4./：表示/<br>5.[a-z]:表示a到z中的任意一个字符<br>6.[:punct:]:表示任意符号<br>7./i：表示不区分大小写<br>所以我们就可以直接对url进行构造了：<br><img src="/2019/10/26/bugku/21.PNG" alt="源代码"><br>得到flag：<br><img src="/2019/10/26/bugku/22.PNG" alt="源代码"> </p>
-<p>##前女友(SKCTF)<br><img src="/2019/10/26/bugku/23.PNG" alt="源代码"><br>进来就是一段文字，没什么特别的。<br>打开F12，可以发现一个链接，打开链接：<br><img src="/2019/10/26/bugku/24.PNG" alt="源代码"><br>发现一段PHP代码，大概的意思就是取v1、v2、v3，v1不等于v2但MD5（v1）==MD5（v2）且v3等于flag。<br>v1、v2很容易得出来，前面已有类似的题。<br>而v3的话，我们可以查找以下strcmp函数的漏洞，发现其在对一个数组和一个字符串比较的时候会返回0，所以我们令v3为一个数组就行了。<br>构造url；<br><img src="/2019/10/26/bugku/25.PNG" alt="源代码"><br>得到falg：<br><img src="/2019/10/26/bugku/26.PNG" alt="源代码"></p>
-<h2 id="你从哪里来"><a href="#你从哪里来" class="headerlink" title="你从哪里来"></a>你从哪里来</h2><p><img src="/2019/10/26/bugku/32.PNG" alt="源代码"><br>应该是让我们用google进入网址，但是用google试了一下没什么区别。应该是要修改请求头里面的信息来让它认为我们是从google来的。我们可以修改referer的值为 <a href="https://www.google.com" target="_blank" rel="noopener">https://www.google.com</a><br><img src="/2019/10/26/bugku/33.PNG" alt="源代码"><br>重新发送，得到flag：<br><img src="/2019/10/26/bugku/34.PNG" alt="源代码"></p>
-<h2 id="md5-collision-NUPT-CTF"><a href="#md5-collision-NUPT-CTF" class="headerlink" title="md5 collision(NUPT_CTF)"></a>md5 collision(NUPT_CTF)</h2><p><img src="/2019/10/26/bugku/35.PNG" alt="源代码"><br>题目的意思就是MD5碰撞，要求以a传值。<br>直接查找常见的MD5碰撞值就可以了：<br><img src="/2019/10/26/bugku/36.PNG" alt="源代码"><br>随便输入一个就可以得到flag了：<br><img src="/2019/10/26/bugku/37.PNG" alt="源代码"></p>
-<p>##程序员本地网站<br><img src="/2019/10/26/bugku/38.PNG" alt="源代码"><br>提示要从本地进行访问，可以通过添加XFF（X-Forwarded-For）发送请求，XFF是用来识别通过HTTP代理或负载均衡方式连接到Web服务器的客户端最原始的IP地址的HTTP请求头字段。<br>添加X-Forwarded-For: 127.0.0.1：<br><img src="/2019/10/26/bugku/39.PNG" alt="源代码"><br>再发送，就得到了flag：<br><img src="/2019/10/26/bugku/40.PNG" alt="源代码"></p>
-<p>##各种绕过<br><img src="/2019/10/26/bugku/41.PNG" alt="源代码"><br>代码的大概意思就是要让uname和passwd的类型相同但值不同，且sha1($_GET[‘uname’])==sha1($_POST[‘passwd’])<br>这跟MD5的绕过类似：让其为数组即可<br><img src="/2019/10/26/bugku/42.PNG" alt="源代码"><br>就可以得到flag：<br><img src="/2019/10/26/bugku/43.PNG" alt="源代码"></p>
-<p>##web8<br><img src="/2019/10/26/bugku/44.PNG" alt="源代码"><br>需要让ac和fn相同，则我们可以向其传相同的值，其中fn为file，所以通过php://input输入：<br><img src="/2019/10/26/bugku/45.PNG" alt="源代码"><br>编辑请求主体为和ac一样的值：<br><img src="/2019/10/26/bugku/46.PNG" alt="源代码"><br>发送，得到flag：<br><img src="/2019/10/26/bugku/47.PNG" alt="源代码"></p>
-<p>看别人的writeup，发现还有一种方法。<br>题目提示为txt，猜可能有一个flag.txt的文件：<br><img src="/2019/10/26/bugku/48.PNG" alt="源代码"><br>内容为flags，所以就可以令a=flags，fn为flag.txt：<br><img src="/2019/10/26/bugku/49.PNG" alt="源代码"><br>同样可以得到flag：<br><img src="/2019/10/26/bugku/50.PNG" alt="源代码"></p>
-<p>##</p>
-
+        <h2 id="base64-基本原理"><a href="#base64-基本原理" class="headerlink" title="base64 基本原理"></a>base64 基本原理</h2><p>通过64个字符来表示二进制数据的方法，包含的字符有：a-z \A-Z \0-9 + /<br>还包括一种填充字符“=”</p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>1.把三个字节变成4个字节<br>2.每76个字节加一个换行符<br>3.最后的结束符也要处理</p>
+<h3 id="转换表"><a href="#转换表" class="headerlink" title="转换表"></a>转换表</h3><h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3>
       
 
       
@@ -277,7 +209,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">bugku web write-up</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">base64 隐写</a>
         		</li>
       		
 		</ul>
@@ -333,7 +265,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://mr-cd1.github.io/2019/10/26/bugku/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://mr-cd1.github.io/2019/11/07/base64-%E9%9A%90%E5%86%99/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -347,18 +279,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/27/bugku-misc/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          write-up
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/10/23/PHP-Mail%E6%B3%A8%E5%85%A5/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PHP Mail注入</div>
+    <a href="/2019/11/02/writeup/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">新生赛writeup</div>
       <i class="icon-circle-right"></i>
     </a>
   

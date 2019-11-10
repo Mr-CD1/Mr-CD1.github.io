@@ -151,6 +151,154 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-base64-隐写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/07/base64-%E9%9A%90%E5%86%99/">base64 隐写</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/07/base64-%E9%9A%90%E5%86%99/" class="archive-article-date">
+  	<time datetime="2019-11-07T12:14:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="base64-基本原理"><a href="#base64-基本原理" class="headerlink" title="base64 基本原理"></a>base64 基本原理</h2><p>通过64个字符来表示二进制数据的方法，包含的字符有：a-z \A-Z \0-9 + /<br>还包括一种填充字符“=”</p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>1.把三个字节变成4个字节<br>2.每76个字节加一个换行符<br>3.最后的结束符也要处理</p>
+<h3 id="转换表"><a href="#转换表" class="headerlink" title="转换表"></a>转换表</h3><h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">base64 隐写</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/07/base64-%E9%9A%90%E5%86%99/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-writeup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/02/writeup/">新生赛writeup</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/02/writeup/" class="archive-article-date">
+  	<time datetime="2019-11-02T07:02:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="san-check"><a href="#san-check" class="headerlink" title="san check"></a>san check</h2><p><img src="/2019/11/02/writeup/1.png" alt="picture1"><br>直接输入</p>
+<h2 id="littleRSA"><a href="#littleRSA" class="headerlink" title="littleRSA"></a>littleRSA</h2><p>文本就给了你flag，直接输入即可</p>
+<h2 id="Check-in"><a href="#Check-in" class="headerlink" title="Check in"></a>Check in</h2><p>在源代码里面可以找到：<br><img src="/2019/11/02/writeup/2.png" alt="picture1"><br>进行base64编码：<br><img src="/2019/11/02/writeup/3.png" alt="picture1"><br>就得到了flag</p>
+<h2 id="ez-LFI"><a href="#ez-LFI" class="headerlink" title="ez LFI"></a>ez LFI</h2><p>给了一个提示：<br><img src="/2019/11/02/writeup/4.png" alt="picture1"><br>进入文件但不能得到flag：<br><img src="/2019/11/02/writeup/5.png" alt="picture1"><br>那我们就用php://filter来读取文件：<br><img src="/2019/11/02/writeup/6.png" alt="picture1"><br>得到一串编码:<br><img src="/2019/11/02/writeup/7.png" alt="picture1"><br>对其进行base64编码得到：<br><img src="/2019/11/02/writeup/8.png" alt="picture1"></p>
+<h2 id="Welcome-to-Aurora"><a href="#Welcome-to-Aurora" class="headerlink" title="Welcome to Aurora"></a>Welcome to Aurora</h2><p>页面提示要使用Aurora浏览器打开，所以我们就找到该浏览器并打开网页：<br><img src="/2019/11/02/writeup/9.png" alt="picture1"><br>就得到flag了</p>
+<h2 id="re-sighup"><a href="#re-sighup" class="headerlink" title="re_sighup"></a>re_sighup</h2><p>用IDA打开并查看代码：<br><img src="/2019/11/02/writeup/10.png" alt="picture1"><br>很容易知道下面就是flag字符串中的各个字符，跳转到相应的位置，可以编译处相应的字符：<br><img src="/2019/11/02/writeup/11.png" alt="picture1"><br>一一对应就可以得到flag了    </p>
+<h2 id="div"><a href="#div" class="headerlink" title="div"></a>div</h2><p>查看源代码：<br><img src="/2019/11/02/writeup/12.png" alt="picture1"><br>很简单，就是一个除法运算<br>再看看给的Readme：<br><img src="/2019/11/02/writeup/13.png" alt="picture1"><br>给出了一个用来test的N，下面就是一段汇编代码，大概意思就是将一个常熟和输入的参数相乘，再进行移位，再减去输入参数移位后的结果。<br>我们知道移一位相当于除以2，所以我们通过和源代码的对照，得到N=2^78/常熟-2^15,对结果进行验证刚好得到测试用的N。<br>所以我们可以进行解答，打开div.o文件：<br><img src="/2019/11/02/writeup/14.png" alt="picture1"><br>类似的，N=2^94/常熟-2^31<br>得到N=2333333333,所以flag为：<br>Aurora{2333333333};</p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><p><img src="/2019/11/02/writeup/15.png" alt="picture1"><br>可以看到会对字符串s1和s2进行比较，所以只要找到s2的字符串就行了：<br><img src="/2019/11/02/writeup/16.png" alt="picture1"><br>很明显，这是一个base64编码的字符串，对其进行编码，得到：<br><img src="/2019/11/02/writeup/17.png" alt="picture1"><br>得到flag</p>
+<h2 id="ssti"><a href="#ssti" class="headerlink" title="ssti"></a>ssti</h2><p>之前已知没有注意题目，弄了很久不知道怎么办……后来看到题目ssti，查了以下就知道是模块注入了。<br>我们输入{ { } }，发现会被过滤掉了。<br>通过构造payload可以查看到全局变量：<br>{ {url_for.<strong>globals</strong>[‘current_app’].config.FLAG} }<br>输入提交得到:<br><img src="/2019/11/02/writeup/18.png" alt="picture1"><br>再对其进行base4解码即可得到flag：<br><img src="/2019/11/02/writeup/19.png" alt="picture1">    </p>
+<h2 id="base64-stego"><a href="#base64-stego" class="headerlink" title="base64_stego"></a>base64_stego</h2><p>首先用base64解码发现是一段文章，但是里面并没有关于flag的直接信息，但是可以发现该题跟隐写有关。查找了以下资料发现了有关base64隐写的信息。<br>大概意思就是在编码的时候，会对数据进行分组而有多余的数据，这不会影响编码但是可以把需要隐藏的数据塞进去<br>直接上脚本（非本人所写）：<br><img src="/2019/11/02/writeup/20.png" alt="picture1"><br> 执行就可以得到flag：<br><img src="/2019/11/02/writeup/21.png" alt="picture1">    </p>
+<h2 id="bigRSA"><a href="#bigRSA" class="headerlink" title="bigRSA"></a>bigRSA</h2><p>在这里我们可以使用RsaCtftool进行解答：<br><img src="/2019/11/02/writeup/22.png" alt="picture1"><br><img src="/2019/11/02/writeup/23.png" alt="picture1"><br>得到密钥d:<br><img src="/2019/11/02/writeup/24.png" alt="picture1"><br>得到了密钥就可以很容易得出明文了：<br><img src="/2019/11/02/writeup/25.png" alt="picture1"><br><img src="/2019/11/02/writeup/26.png" alt="picture1">            </p>
+<h2 id><a href="#" class="headerlink" title></a></h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/02/writeup/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-新生赛writeup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -175,6 +323,14 @@
 <h2 id="littleRSA"><a href="#littleRSA" class="headerlink" title="littleRSA"></a>littleRSA</h2><p>文本就给了你flag，直接输入即可</p>
 <h2 id="Check-in"><a href="#Check-in" class="headerlink" title="Check in"></a>Check in</h2><p>在源代码里面可以找到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/2.png" alt="picture1"><br>进行base64编码：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/3.png" alt="picture1"><br>就得到了flag</p>
 <h2 id="ez-LFI"><a href="#ez-LFI" class="headerlink" title="ez LFI"></a>ez LFI</h2><p>给了一个提示：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/4.png" alt="picture1"><br>进入文件但不能得到flag：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/5.png" alt="picture1"><br>那我们就用php://filter来读取文件：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/6.png" alt="picture1"><br>得到一串编码:<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/7.png" alt="picture1"><br>对其进行base64编码得到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/8.png" alt="picture1"></p>
+<h2 id="Welcome-to-Aurora"><a href="#Welcome-to-Aurora" class="headerlink" title="Welcome to Aurora"></a>Welcome to Aurora</h2><p>页面提示要使用Aurora浏览器打开，所以我们就找到该浏览器并打开网页：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/9.png" alt="picture1"><br>就得到flag了</p>
+<h2 id="re-sighup"><a href="#re-sighup" class="headerlink" title="re_sighup"></a>re_sighup</h2><p>用IDA打开并查看代码：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/10.png" alt="picture1"><br>很容易知道下面就是flag字符串中的各个字符，跳转到相应的位置，可以编译处相应的字符：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/11.png" alt="picture1"><br>一一对应就可以得到flag了    </p>
+<h2 id="div"><a href="#div" class="headerlink" title="div"></a>div</h2><p>查看源代码：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/12.png" alt="picture1"><br>很简单，就是一个除法运算<br>再看看给的Readme：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/13.png" alt="picture1"><br>给出了一个用来test的N，下面就是一段汇编代码，大概意思就是将一个常熟和输入的参数相乘，再进行移位，再减去输入参数移位后的结果。<br>我们知道移一位相当于除以2，所以我们通过和源代码的对照，得到N=2^78/常熟-2^15,对结果进行验证刚好得到测试用的N。<br>所以我们可以进行解答，打开div.o文件：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/14.png" alt="picture1"><br>类似的，N=2^94/常熟-2^31<br>得到N=2333333333,所以flag为：<br>Aurora{2333333333};</p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><p><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/15.png" alt="picture1"><br>可以看到会对字符串s1和s2进行比较，所以只要找到s2的字符串就行了：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/16.png" alt="picture1"><br>很明显，这是一个base64编码的字符串，对其进行编码，得到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/17.png" alt="picture1"><br>得到flag</p>
+<h2 id="ssti"><a href="#ssti" class="headerlink" title="ssti"></a>ssti</h2><p>之前已知没有注意题目，弄了很久不知道怎么办……后来看到题目ssti，查了以下就知道是模块注入了。<br>我们输入{ { } }，发现会被过滤掉了。<br>通过构造payload可以查看到全局变量：<br>{ {url_for.<strong>globals</strong>[‘current_app’].config.FLAG} }<br>输入提交得到:<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/18.png" alt="picture1"><br>再对其进行base4解码即可得到flag：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/19.png" alt="picture1">    </p>
+<h2 id="base64-stego"><a href="#base64-stego" class="headerlink" title="base64_stego"></a>base64_stego</h2><p>首先用base64解码发现是一段文章，但是里面并没有关于flag的直接信息，但是可以发现该题跟隐写有关。查找了以下资料发现了有关base64隐写的信息。<br>大概意思就是在编码的时候，会对数据进行分组而有多余的数据，这不会影响编码但是可以把需要隐藏的数据塞进去<br>直接上脚本（非本人所写）：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/20.png" alt="picture1"><br> 执行就可以得到flag：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/21.png" alt="picture1">    </p>
+<h2 id="bigRSA"><a href="#bigRSA" class="headerlink" title="bigRSA"></a>bigRSA</h2><p>在这里我们可以使用RsaCtftool进行解答：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/22.png" alt="picture1"><br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/23.png" alt="picture1"><br>得到密钥d:<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/24.png" alt="picture1"><br>得到了密钥就可以很容易得出明文了：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/25.png" alt="picture1"><br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/26.png" alt="picture1">       </p>
+<h2 id="网线鲨鱼"><a href="#网线鲨鱼" class="headerlink" title="网线鲨鱼"></a>网线鲨鱼</h2><p>用wireshark打开文件，使用http过滤包：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/27.png" alt="picture1"><br>因为是拦截的包，所以我们就可以想到应该要找post的包：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/28.png" alt="picture1"><br>就可以找到flag了！<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/29.png" alt="picture1">        </p>
 
       
 
@@ -821,6 +977,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">base64 隐写</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
               </li>
              
@@ -829,19 +997,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">bugku-misc write-up</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
               </li>
             
             <div class="clearfix"></div>
