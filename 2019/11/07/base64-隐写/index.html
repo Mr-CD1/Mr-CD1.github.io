@@ -20,7 +20,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;base64-%E9%9A%90%E5%86%99&#x2F;2.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;base64-%E9%9A%90%E5%86%99&#x2F;3.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;base64-%E9%9A%90%E5%86%99&#x2F;4.PNG">
-<meta property="og:updated_time" content="2019-11-10T04:00:56.995Z">
+<meta property="og:updated_time" content="2019-11-10T13:32:43.228Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;11&#x2F;07&#x2F;base64-%E9%9A%90%E5%86%99&#x2F;1.PNG">
   
@@ -184,7 +184,33 @@
 <h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>字符串“Tr0”编码成“VHIw”：<br><img src="/2019/11/07/base64-%E9%9A%90%E5%86%99/2.PNG" alt="picture"><br>每个字节8位，经过base64每个字节变成6位。上面刚好可以精确的分成四个分块。<br>但若字节数不是3的整数倍，那就不能刚好分块6位的块，只能在字节后添加0来使其字节数变成6的倍数<br>然后，在编码后的字符串后面添加1个或2个0来表示所添加的0<br>比如，字符串“Tr0y”经过base64编码后变成“VHIweQ==”:<br><img src="/2019/11/07/base64-%E9%9A%90%E5%86%99/3.PNG" alt="picture"></p>
 <h2 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h2><p>1.将等号起掉，转为二进制数<br>2.从左到右，8个一组，多于位丢掉，转为相应的ASCII码</p>
 <h2 id="隐写原理"><a href="#隐写原理" class="headerlink" title="隐写原理"></a>隐写原理</h2><p><img src="/2019/11/07/base64-%E9%9A%90%E5%86%99/4.PNG" alt="picture"><br>在解码的时候会将多余位丢掉，所以这里的值并不会影响到解码，我们可以在这里进行隐写。<br>一行base64最多有2个等号，也就最多有4个可隐写位。把需要隐藏的信息转为8进制位塞进去就可以了</p>
-<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2>
+<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2><pre><code> -*- coding: cp936 -*-
+import base64
+flag = &apos;Tr0y{Base64isF4n}&apos; #flag
+bin_str = &apos;&apos;.join([bin(ord(c)).replace(&apos;0b&apos;, &apos;&apos;).zfill(8) for c in flag]) #将flag转换成2进制字符串
+base64chars = &apos;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&apos;
+with open(&apos;0.txt&apos;, &apos;rb&apos;) as f0, open(&apos;1.txt&apos;, &apos;wb&apos;) as f1: #&apos;0.txt&apos;是明文, &apos;1.txt&apos;用于存放隐写后的 base64
+    for line in f0.readlines():
+        rowstr = base64.b64encode(line.replace(&apos;\n&apos;, &apos;&apos;)) #将明文用base64编码并将换行符去掉
+        equalnum = rowstr.count(&apos;=&apos;) # ‘=’的数量
+        if equalnum and len(bin_str):
+            offset = int(&apos;0b&apos;+bin_str[:equalnum * 2], 2) #equalnum * 2：可以隐写的位数
+            char = rowstr[len(rowstr) - equalnum - 1] #等号前一位字符
+            rowstr = rowstr.replace(char, base64chars[base64chars.index(char) + offset]) #
+            bin_str = bin_str[equalnum*2:] #丢弃前面已隐写的位
+        f1.write(rowstr + &apos;\n&apos;)</code></pre><h2 id="解密代码"><a href="#解密代码" class="headerlink" title="解密代码"></a>解密代码</h2><pre><code> -*- coding: cp936 -*-
+b64chars = &apos;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&apos;
+with open(&apos;1.txt&apos;, &apos;rb&apos;) as f:
+    bin_str = &apos;&apos; #空字符串
+    for line in f.readlines():
+        stegb64 = &apos;&apos;.join(line.split()) #以换行符分隔base64全文
+        rowb64 =  &apos;&apos;.join(stegb64.decode(&apos;base64&apos;).encode(&apos;base64&apos;).split()) 将其进行base64解码再进行编码
+        offset = abs(b64chars.index(stegb64.replace(&apos;=&apos;,&apos;&apos;)[-1])-b64chars.index(rowb64.replace(&apos;=&apos;,&apos;&apos;)[-1])) #将base64编码中的=去掉，并得到最后一个字符偏移
+        equalnum = stegb64.count(&apos;=&apos;) #no equalnum no offset
+        if equalnum:
+            bin_str += bin(offset)[2:].zfill(equalnum * 2)
+        print &apos;&apos;.join([chr(int(bin_str[i:i + 8], 2)) for i in xrange(0, len(bin_str), 8)]) #8 位一组</code></pre><p><a href="https://www.tr0y.wang/2017/06/14/Base64steg/" target="_blank" rel="noopener" title="参考文章">https://www.tr0y.wang/2017/06/14/Base64steg/</a></p>
+
       
 
       
@@ -287,6 +313,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/11/11/SQL%E7%BA%A6%E6%9D%9F%E6%94%BB%E5%87%BB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          SQL约束攻击
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/30/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E3%80%81%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E3%80%81%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
@@ -416,15 +451,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
+                <a href="javascript:void(0)" class="js-tag color3">SQL约束攻击</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,7 +459,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">base64-隐写</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,7 +479,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
+                <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
               </li>
             
             <div class="clearfix"></div>
