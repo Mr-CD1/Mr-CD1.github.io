@@ -71,7 +71,13 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;48.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;49.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;50.PNG">
-<meta property="og:updated_time" content="2019-11-11T14:08:18.452Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;59.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;60.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;61.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;62.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;63.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;64.PNG">
+<meta property="og:updated_time" content="2019-11-12T05:29:49.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;26&#x2F;bugku&#x2F;1.PNG">
   
@@ -252,7 +258,9 @@
 <p>##各种绕过<br><img src="/2019/10/26/bugku/41.PNG" alt="源代码"><br>代码的大概意思就是要让uname和passwd的类型相同但值不同，且sha1($_GET[‘uname’])==sha1($_POST[‘passwd’])<br>这跟MD5的绕过类似：让其为数组即可<br><img src="/2019/10/26/bugku/42.PNG" alt="源代码"><br>就可以得到flag：<br><img src="/2019/10/26/bugku/43.PNG" alt="源代码"></p>
 <p>##web8<br><img src="/2019/10/26/bugku/44.PNG" alt="源代码"><br>需要让ac和fn相同，则我们可以向其传相同的值，其中fn为file，所以通过php://input输入：<br><img src="/2019/10/26/bugku/45.PNG" alt="源代码"><br>编辑请求主体为和ac一样的值：<br><img src="/2019/10/26/bugku/46.PNG" alt="源代码"><br>发送，得到flag：<br><img src="/2019/10/26/bugku/47.PNG" alt="源代码"></p>
 <p>看别人的writeup，发现还有一种方法。<br>题目提示为txt，猜可能有一个flag.txt的文件：<br><img src="/2019/10/26/bugku/48.PNG" alt="源代码"><br>内容为flags，所以就可以令a=flags，fn为flag.txt：<br><img src="/2019/10/26/bugku/49.PNG" alt="源代码"><br>同样可以得到flag：<br><img src="/2019/10/26/bugku/50.PNG" alt="源代码"></p>
-<p>##</p>
+<h2 id="细心"><a href="#细心" class="headerlink" title="细心"></a>细心</h2><p>打开页面上面也没有：<br><img src="/2019/10/26/bugku/59.PNG" alt="源代码"><br>尝试用后台扫描工具，得到一个robots.txt：<br><img src="/2019/10/26/bugku/60.PNG" alt="源代码"><br>进入该页面，可以看到禁止了一个页面：<br><img src="/2019/10/26/bugku/61.PNG" alt="源代码"><br>进入resusl.php，提示不是admin用户：<br><img src="/2019/10/26/bugku/62.PNG" alt="源代码"></p>
+<pre><code>if($_GET[x]==$password)</code></pre><p>让password==admin就可以以admin的身份进入了：<br><img src="/2019/10/26/bugku/63.PNG" alt="源代码"><br>得到flag：<br><img src="/2019/10/26/bugku/64.PNG" alt="源代码"></p>
+<p>原题：<a href="http://123.206.87.240:8002/web13/" target="_blank" rel="noopener">http://123.206.87.240:8002/web13/</a></p>
 
       
 
@@ -494,11 +502,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">PHP伪协议</a>
+                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
+                <a href="javascript:void(0)" class="js-tag color2">PHP伪协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,7 +518,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">bugku-misc write-up</a>
+                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +526,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
+                <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
+                <a href="javascript:void(0)" class="js-tag color5">bugku-misc write-up</a>
               </li>
             
             <div class="clearfix"></div>
