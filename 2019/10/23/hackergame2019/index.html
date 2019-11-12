@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="https://mr-cd1.github.io">
   <title>hackergame2019 | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HakerGame Write-Up  签到题  看题目，就是要将自己的token复制进框内。复制进去后，发现按钮按不了。NG )打开F12查看源码，选择按钮的代码disable表示按钮不能按，所以删掉这句，得到 就可以得到flag 2.白与夜 这也是比较简单的题，之间使用stegsolve就行了，得到flag 3.信息安全2077打开就是这个样子，像是倒计时一样。 查看它的网络请求，想想肯定是跟">
+  <meta name="description" content="HakerGame Write-Up 签到题看题目，就是要将自己的token复制进框内。复制进去后，发现按钮按不了。NG )打开F12查看源码，选择按钮的代码disable表示按钮不能按，所以删掉这句，得到 就可以得到flag 白与夜这也是比较简单的题，之间使用stegsolve就行了，得到flag 信息安全2077打开就是这个样子，像是倒计时一样。 查看它的网络请求，想想肯定是跟时间有关的，查看">
 <meta name="keywords" content="hackergame2019">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hackergame2019">
 <meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;index.html">
 <meta property="og:site_name" content="DC">
-<meta property="og:description" content="HakerGame Write-Up  签到题  看题目，就是要将自己的token复制进框内。复制进去后，发现按钮按不了。NG )打开F12查看源码，选择按钮的代码disable表示按钮不能按，所以删掉这句，得到 就可以得到flag 2.白与夜 这也是比较简单的题，之间使用stegsolve就行了，得到flag 3.信息安全2077打开就是这个样子，像是倒计时一样。 查看它的网络请求，想想肯定是跟">
+<meta property="og:description" content="HakerGame Write-Up 签到题看题目，就是要将自己的token复制进框内。复制进去后，发现按钮按不了。NG )打开F12查看源码，选择按钮的代码disable表示按钮不能按，所以删掉这句，得到 就可以得到flag 白与夜这也是比较简单的题，之间使用stegsolve就行了，得到flag 信息安全2077打开就是这个样子，像是倒计时一样。 查看它的网络请求，想想肯定是跟时间有关的，查看">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;5.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;6.PNG">
@@ -30,7 +30,15 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;12.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;13.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;14.PNG">
-<meta property="og:updated_time" content="2019-11-01T00:20:23.336Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;18.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;15.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;16.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;17.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;19.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;20.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;21.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;22.PNG">
+<meta property="og:updated_time" content="2019-11-12T12:18:36.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;10&#x2F;23&#x2F;hackergame2019&#x2F;5.PNG">
   
@@ -189,19 +197,29 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="HakerGame-Write-Up"><a href="#HakerGame-Write-Up" class="headerlink" title="HakerGame Write-Up"></a>HakerGame Write-Up</h1><hr>
-<ol>
-<li>签到题</li>
-</ol>
-<p>看题目，就是要将自己的token复制进框内。复制进去后，发现按钮按不了。<br><img src="/2019/10/23/hackergame2019/5.PNG" alt="picture1"><br>NG )打开F12查看源码，选择按钮的代码<br><img src="/2019/10/23/hackergame2019/6.PNG" alt="picture1"><br><strong>disable</strong>表示按钮不能按，所以删掉这句，得到<br><img src="/2019/10/23/hackergame2019/7.PNG" alt="picture1"></p>
+<h2 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h2><p>看题目，就是要将自己的token复制进框内。复制进去后，发现按钮按不了。<br><img src="/2019/10/23/hackergame2019/5.PNG" alt="picture1"><br>NG )打开F12查看源码，选择按钮的代码<br><img src="/2019/10/23/hackergame2019/6.PNG" alt="picture1"><br><strong>disable</strong>表示按钮不能按，所以删掉这句，得到<br><img src="/2019/10/23/hackergame2019/7.PNG" alt="picture1"></p>
 <p>就可以得到flag<br><img src="/2019/10/23/hackergame2019/8.PNG" alt="picture1"></p>
-<p>2.白与夜</p>
-<p>这也是比较简单的题，之间使用<strong>stegsolve</strong>就行了，得到flag</p>
-<p>3.信息安全2077<br>打开就是这个样子，像是倒计时一样。<br><img src="/2019/10/23/hackergame2019/1.PNG" alt="picture1"></p>
+<h2 id="白与夜"><a href="#白与夜" class="headerlink" title="白与夜"></a>白与夜</h2><p>这也是比较简单的题，之间使用<strong>stegsolve</strong>就行了，得到flag</p>
+<h2 id="信息安全2077"><a href="#信息安全2077" class="headerlink" title="信息安全2077"></a>信息安全2077</h2><p>打开就是这个样子，像是倒计时一样。<br><img src="/2019/10/23/hackergame2019/1.PNG" alt="picture1"></p>
 <p>查看它的网络请求，想想肯定是跟时间有关的，查看head里面的Date和Last-Modified<br><img src="/2019/10/23/hackergame2019/2.PNG" alt="picture1"><br>可以看到Last-Modified是在2077年，那我们就让它以为我们是在那个时间点就可以得到本该在2077年得到的flag<br><img src="/2019/10/23/hackergame2019/3.PNG" alt="picture1"><br>可以看到状态码变为200，即得到了响应，响应载荷就是我们要的flag<br><img src="/2019/10/23/hackergame2019/4.PNG" alt="picture1"></p>
-<p>4.宇宙终极问题 42<br>百度一下就得到答案了</p>
-<p>5.网页读取器<br><img src="/2019/10/23/hackergame2019/9.PNG" alt="picture1"><br>可以看到源码是这样的，我们需要的网站并不在白名单中，但分析源代码可以看到@在分析之中，即会解析@后面的域名，所以我们可以将地址写成：<br><img src="/2019/10/23/hackergame2019/10.PNG" alt="picture1"><br>得到flag为</p>
+<h2 id="宇宙终极问题-42"><a href="#宇宙终极问题-42" class="headerlink" title="宇宙终极问题 42"></a>宇宙终极问题 42</h2><p>百度一下就得到答案了</p>
+<h2 id="网页读取器"><a href="#网页读取器" class="headerlink" title="网页读取器"></a>网页读取器</h2><p><img src="/2019/10/23/hackergame2019/9.PNG" alt="picture1"><br>可以看到源码是这样的，我们需要的网站并不在白名单中，但分析源代码可以看到@在分析之中，即会解析@后面的域名，所以我们可以将地址写成：<br><img src="/2019/10/23/hackergame2019/10.PNG" alt="picture1"><br>得到flag为</p>
 <p><img src="/2019/10/23/hackergame2019/11.PNG" alt="picture1"></p>
-<p>6.达拉崩吧大冒险<br>这题是看了别人的writeup才写出来的，之前也想到过改数据，但没想到让其溢出。<br>一直点send直到到大妈那买鸡，这是关键，因为它能让你变强。<br><img src="/2019/10/23/hackergame2019/12.PNG" alt="picture1"><br>直接修改value=-1，send后发现钱增加了，攻击力却变小了。一直减小输入的value，攻击力也一直变小，所以当减小到一定值时，攻击力会溢出，成为一个很大的数，这时你就能打败巨龙了！<br><img src="/2019/10/23/hackergame2019/13.PNG" alt="picture1"><br>打败巨龙就可以得到flag了<br><img src="/2019/10/23/hackergame2019/14.PNG" alt="picture1"></p>
+<h2 id="达拉崩吧大冒险"><a href="#达拉崩吧大冒险" class="headerlink" title="达拉崩吧大冒险"></a>达拉崩吧大冒险</h2><p>这题是看了别人的writeup才写出来的，之前也想到过改数据，但没想到让其溢出。<br>一直点send直到到大妈那买鸡，这是关键，因为它能让你变强。<br><img src="/2019/10/23/hackergame2019/12.PNG" alt="picture1"><br>直接修改value=-1，send后发现钱增加了，攻击力却变小了。一直减小输入的value，攻击力也一直变小，所以当减小到一定值时，攻击力会溢出，成为一个很大的数，这时你就能打败巨龙了！<br><img src="/2019/10/23/hackergame2019/13.PNG" alt="picture1"><br>打败巨龙就可以得到flag了<br><img src="/2019/10/23/hackergame2019/14.PNG" alt="picture1"></p>
+<h2 id="Happy-LUG"><a href="#Happy-LUG" class="headerlink" title="Happy LUG"></a>Happy LUG</h2><p><img src="/2019/10/23/hackergame2019/18.PNG" alt="picture1"><br>直接将这个输入访问：<br><img src="/2019/10/23/hackergame2019/15.PNG" alt="picture1"><br>无法访问但是可以得到实际的域名：</p>
+<pre><code>xn--g28h.hack.ustclug</code></pre><p>要想访问一个域名代表的网站，浏览器会先对域名进行DNS解析，我们使用dig命令：<br><img src="/2019/10/23/hackergame2019/16.PNG" alt="picture1"><br>域名查询请求并没有回应A记录，浏览器找不到相应的IP，自然无法访问。就可以尝试以下其他的记录类型： TXT (常用作字串)<br><img src="/2019/10/23/hackergame2019/17.PNG" alt="picture1"><br>得到flag</p>
+<h2 id="正则验证器"><a href="#正则验证器" class="headerlink" title="正则验证器"></a>正则验证器</h2><p>py:<br><img src="/2019/10/23/hackergame2019/19.PNG" alt="picture1"><br>要让运行时间超过一秒，可以使用构造正则回溯的方法：</p>
+<pre><code>(a*)*S</code></pre><p>输入</p>
+<pre><code>aaaaaaaaaaaaaaaaaaaaaaab</code></pre><p>就可以得到flag:<br><img src="/2019/10/23/hackergame2019/20.PNG" alt="picture1"></p>
+<h2 id="小巧玲珑的ELF"><a href="#小巧玲珑的ELF" class="headerlink" title="小巧玲珑的ELF"></a>小巧玲珑的ELF</h2><p>用ida打开ELF文件：<br><img src="/2019/10/23/hackergame2019/21.PNG" alt="picture1"><br>意思就是让我们输入的值经过一系列的运算后得到和上面v的值相同的结果，我们可以进行逆运算得到结果：<br>代码如下：</p>
+<pre><code>aim=[102,110,101,107,131,78,109,116,133,122,111,87,-111,115,-112,79,-115,127,99,54,108,110,-121,105,-93,111,88,115,102,86,-109,-97,105,112,56,118,113,120,111,99,-60,-126,-124,-66,-69,-51]
+for i in range(len(aim)): # range函数创建一个长度和aim数组相同的列表
+    one=aim[i] 
+    one=(one+i)%256 #%2565 是因为chr函数只能转换值在0~255之间的值，若超过就会返回错误，所以就用取余来得到正确的结果
+    one=one^i #进行异或
+    one=(one-2*i)%256
+    print(chr(one),end=&quot;&quot;) #得到flag</code></pre><p>运行代码就可以得到flag：<br><img src="/2019/10/23/hackergame2019/22.PNG" alt="picture1"></p>
+<p>原题文件：<br><a href="https://hack.lug.ustc.edu.cn/media/3fe9d5fb-3349-5eaf-863c-20da8eb98dfb/tinyELF" target="_blank" rel="noopener">https://hack.lug.ustc.edu.cn/media/3fe9d5fb-3349-5eaf-863c-20da8eb98dfb/tinyELF</a></p>
 
       
 
@@ -438,7 +456,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
+                <a href="javascript:void(0)" class="js-tag color3">DNS记录类型</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -446,7 +464,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">SQL约束攻击</a>
+                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,7 +472,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
+                <a href="javascript:void(0)" class="js-tag color2">linux dig命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">SQL约束攻击</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,11 +484,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">bugku-misc write-up</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">bugku-misc write-up</a>
+                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
               </li>
             
             <div class="clearfix"></div>
