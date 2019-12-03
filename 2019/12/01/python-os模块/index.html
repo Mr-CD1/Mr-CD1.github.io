@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://mr-cd1.github.io">
   <title>python os模块 | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#常用的命令    创建文件夹    os.makedir(‘dir1&#x2F;dir2’) #可生成多层递归目录,可以创建不存在的中间文件夹；若dir1不存在，则自己创建dir1    os.mkdir(‘dir’) #生成单级目录    os.mkdir(‘dir1&#x2F;dir2’) #若dir1不存在则返回错误  只能删空文件夹 os.rmdir(&amp;apos;dir1,&#x2F;dir2&amp;apos;) #删除单">
+  <meta name="description" content="常用的命令创建文件夹 os.makedir(&amp;apos;dir1&#x2F;dir2&amp;apos;) #可生成多层递归目录,可以创建不存在的中间文件夹；若dir1不存在，则自己创建dir1 os.mkdir(&amp;apos;dir&amp;apos;) #生成单级目录 os.mkdir(&amp;apos;dir1&#x2F;dir2&amp;apos;) #若dir1不存在则返回错误 只能删空文件夹 os.rmdir(&amp;apos;dir1,&#x2F;d">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python os模块">
 <meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;12&#x2F;01&#x2F;python-os%E6%A8%A1%E5%9D%97&#x2F;index.html">
 <meta property="og:site_name" content="DC">
-<meta property="og:description" content="#常用的命令    创建文件夹    os.makedir(‘dir1&#x2F;dir2’) #可生成多层递归目录,可以创建不存在的中间文件夹；若dir1不存在，则自己创建dir1    os.mkdir(‘dir’) #生成单级目录    os.mkdir(‘dir1&#x2F;dir2’) #若dir1不存在则返回错误  只能删空文件夹 os.rmdir(&amp;apos;dir1,&#x2F;dir2&amp;apos;) #删除单">
+<meta property="og:description" content="常用的命令创建文件夹 os.makedir(&amp;apos;dir1&#x2F;dir2&amp;apos;) #可生成多层递归目录,可以创建不存在的中间文件夹；若dir1不存在，则自己创建dir1 os.mkdir(&amp;apos;dir&amp;apos;) #生成单级目录 os.mkdir(&amp;apos;dir1&#x2F;dir2&amp;apos;) #若dir1不存在则返回错误 只能删空文件夹 os.rmdir(&amp;apos;dir1,&#x2F;d">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-01T01:35:05.893Z">
+<meta property="og:updated_time" content="2019-12-03T13:11:41.598Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="DC" type="application/atom+xml">
@@ -173,8 +173,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#常用的命令<br>    创建文件夹<br>    os.makedir(‘dir1/dir2’) #可生成多层递归目录,可以创建不存在的中间文件夹；若dir1不存在，则自己创建dir1<br>    os.mkdir(‘dir’) #生成单级目录<br>    os.mkdir(‘dir1/dir2’) #若dir1不存在则返回错误</p>
-<hr>
+        <h1 id="常用的命令"><a href="#常用的命令" class="headerlink" title="常用的命令"></a>常用的命令</h1><pre><code>创建文件夹
+os.makedir(&apos;dir1/dir2&apos;) #可生成多层递归目录,可以创建不存在的中间文件夹；若dir1不存在，则自己创建dir1
+os.mkdir(&apos;dir&apos;) #生成单级目录
+os.mkdir(&apos;dir1/dir2&apos;) #若dir1不存在则返回错误</code></pre><hr>
 <pre><code>只能删空文件夹
 os.rmdir(&apos;dir1,/dir2&apos;) #删除单级空目录，若目录不为空则无法删除
 os.removedirs(&apos;dir1/dir2&apos;) #若目录为空则删除，并递归到上一级目录，若仍为空，则删除</code></pre><hr>
@@ -199,8 +201,17 @@ os.access(path,mode) #使用当前的UID尝试访问路径。
              3.os._OK:是否可写
              4.os.X_OK:是否可执行
 os.walk() </code></pre><hr>
-<p>#os.path模块<br>    os.path.abspath(path) #获取文件的绝对路径<br>    os.path.basename(path) #获取文件名称<br>    os.path.commonprefix(list) #返回list中，path共有的最长路径<br>    os.path.dirname(filename) #返回文件路径<br>    os.path.exists(path) #判断路径是否存在，若存在则返回TRUE<br>    os.path.getatime(path) #返回文件最近访问的时间<br>    os.path.getmtime(path) #返回文件最近修改的时间<br>    os.path.getctime(path) #返回文件创建的时间<br>    os.path.join(path1,path2,…) #拼接路径<br>    os.path.splitext(path) #将文件名和扩展名分开<br>    os.path.split(path) #返回文件的路径和文件名</p>
-
+<h1 id="os-path模块"><a href="#os-path模块" class="headerlink" title="os.path模块"></a>os.path模块</h1><pre><code>os.path.abspath(path) #获取文件的绝对路径
+os.path.basename(path) #获取文件名称
+os.path.commonprefix(list) #返回list中，path共有的最长路径    
+os.path.dirname(filename) #返回文件路径
+os.path.exists(path) #判断路径是否存在，若存在则返回TRUE
+os.path.getatime(path) #返回文件最近访问的时间
+os.path.getmtime(path) #返回文件最近修改的时间
+os.path.getctime(path) #返回文件创建的时间
+os.path.join(path1,path2,...) #拼接路径
+os.path.splitext(path) #将文件名和扩展名分开
+os.path.split(path) #返回文件的路径和文件名</code></pre>
       
 
       
@@ -441,14 +452,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Problem</a>
               </li>
              
@@ -457,19 +460,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">bugku-misc write-up</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">正则回溯</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -482,6 +485,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">正则回溯</a>
               </li>
             
             <div class="clearfix"></div>

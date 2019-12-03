@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://mr-cd1.github.io">
   <title>python的生成器 | DC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##生成器（generator）通过列表生成式，我们可以直接创建一个列表，但是，受到内存的限制，列表容量有限。这时，就产生了一种方法：不需要创建完整的列表，从而节省大量的空间。    调用过程作为一种特殊的程序，生成器属于迭代器中的一种，使用yield返回值函数，每次调用yield都会暂停，并保存当前所有的运行信息；再使用next()函数和send()函数从当前位置恢复生成器  创建生成器方法1：">
+  <meta name="description" content="生成器（generator）通过列表生成式，我们可以直接创建一个列表，但是，受到内存的限制，列表容量有限。这时，就产生了一种方法：不需要创建完整的列表，从而节省大量的空间。    调用过程作为一种特殊的程序，生成器属于迭代器中的一种，使用yield返回值函数，每次调用yield都会暂停，并保存当前所有的运行信息；再使用next()函数和send()函数从当前位置恢复生成器  创建生成器方法1：将一">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python的生成器">
 <meta property="og:url" content="https:&#x2F;&#x2F;mr-cd1.github.io&#x2F;2019&#x2F;11&#x2F;17&#x2F;python%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8&#x2F;index.html">
 <meta property="og:site_name" content="DC">
-<meta property="og:description" content="##生成器（generator）通过列表生成式，我们可以直接创建一个列表，但是，受到内存的限制，列表容量有限。这时，就产生了一种方法：不需要创建完整的列表，从而节省大量的空间。    调用过程作为一种特殊的程序，生成器属于迭代器中的一种，使用yield返回值函数，每次调用yield都会暂停，并保存当前所有的运行信息；再使用next()函数和send()函数从当前位置恢复生成器  创建生成器方法1：">
+<meta property="og:description" content="生成器（generator）通过列表生成式，我们可以直接创建一个列表，但是，受到内存的限制，列表容量有限。这时，就产生了一种方法：不需要创建完整的列表，从而节省大量的空间。    调用过程作为一种特殊的程序，生成器属于迭代器中的一种，使用yield返回值函数，每次调用yield都会暂停，并保存当前所有的运行信息；再使用next()函数和send()函数从当前位置恢复生成器  创建生成器方法1：将一">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-17T06:30:21.801Z">
+<meta property="og:updated_time" content="2019-12-03T13:12:21.133Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="DC" type="application/atom+xml">
@@ -173,7 +173,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##生成器（generator）<br>通过列表生成式，我们可以直接创建一个列表，但是，受到内存的限制，列表容量有限。这时，就产生了一种方法：不需要创建完整的列表，从而节省大量的空间。  </p>
+        <h2 id="生成器（generator）"><a href="#生成器（generator）" class="headerlink" title="生成器（generator）"></a>生成器（generator）</h2><p>通过列表生成式，我们可以直接创建一个列表，但是，受到内存的限制，列表容量有限。这时，就产生了一种方法：不需要创建完整的列表，从而节省大量的空间。  </p>
 <hr>
 <h3 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h3><p>作为一种特殊的程序，生成器属于迭代器中的一种，使用<strong>yield</strong>返回值函数，每次调用yield都会暂停，并保存当前所有的运行信息；再使用next()函数和send()函数从当前位置恢复生成器</p>
 <hr>
@@ -184,8 +184,7 @@
 &gt;&gt;&gt; g = (x * x for x in range(10)) ## 生成器
 &gt;&gt;&gt; g
 &lt;generator object &lt;genexpr&gt; at 0x1022ef630&gt;</code></pre><p>可以使用next方法将generator中的值打印出来：</p>
-<pre><code>#生成器
-generator_ex = (x*x for x in range(10))
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><pre><code>generator_ex = (x*x for x in range(10))
 print(next(generator_ex))
 print(next(generator_ex))
 print(next(generator_ex))
@@ -478,14 +477,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Problem</a>
               </li>
              
@@ -494,19 +485,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">bugku-misc write-up</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">正则回溯</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,6 +510,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">正则回溯</a>
               </li>
             
             <div class="clearfix"></div>
