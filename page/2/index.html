@@ -151,6 +151,435 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-base64-隐写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/07/base64-%E9%9A%90%E5%86%99/">base64-隐写</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/07/base64-%E9%9A%90%E5%86%99/" class="archive-article-date">
+  	<time datetime="2019-11-07T12:14:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="base64-基本原理"><a href="#base64-基本原理" class="headerlink" title="base64 基本原理"></a>base64 基本原理</h2><p>通过64个字符来表示二进制数据的方法，包含的字符有：a-z \A-Z \0-9 + /<br>还包括一种填充字符“=”</p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>1.把三个字节变成4个字节<br>2.每76个字节加一个换行符<br>3.最后的结束符也要处理</p>
+<h3 id="转换表"><a href="#转换表" class="headerlink" title="转换表"></a>转换表</h3><p><img src="/2019/11/07/base64-%E9%9A%90%E5%86%99/1.PNG" alt="picture"></p>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>字符串“Tr0”编码成“VHIw”：<br><img src="/2019/11/07/base64-%E9%9A%90%E5%86%99/2.PNG" alt="picture"><br>每个字节8位，经过base64每个字节变成6位。上面刚好可以精确的分成四个分块。<br>但若字节数不是3的整数倍，那就不能刚好分块6位的块，只能在字节后添加0来使其字节数变成6的倍数<br>然后，在编码后的字符串后面添加1个或2个0来表示所添加的0<br>比如，字符串“Tr0y”经过base64编码后变成“VHIweQ==”:<br><img src="/2019/11/07/base64-%E9%9A%90%E5%86%99/3.PNG" alt="picture"></p>
+<h2 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h2><p>1.将等号起掉，转为二进制数<br>2.从左到右，8个一组，多于位丢掉，转为相应的ASCII码</p>
+<h2 id="隐写原理"><a href="#隐写原理" class="headerlink" title="隐写原理"></a>隐写原理</h2><p><img src="/2019/11/07/base64-%E9%9A%90%E5%86%99/4.PNG" alt="picture"><br>在解码的时候会将多余位丢掉，所以这里的值并不会影响到解码，我们可以在这里进行隐写。<br>一行base64最多有2个等号，也就最多有4个可隐写位。把需要隐藏的信息转为8进制位塞进去就可以了</p>
+<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2><pre><code> -*- coding: cp936 -*-
+import base64
+flag = &apos;Tr0y{Base64isF4n}&apos; #flag
+bin_str = &apos;&apos;.join([bin(ord(c)).replace(&apos;0b&apos;, &apos;&apos;).zfill(8) for c in flag]) #将flag转换成2进制字符串
+base64chars = &apos;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&apos;
+with open(&apos;0.txt&apos;, &apos;rb&apos;) as f0, open(&apos;1.txt&apos;, &apos;wb&apos;) as f1: #&apos;0.txt&apos;是明文, &apos;1.txt&apos;用于存放隐写后的 base64
+    for line in f0.readlines():
+        rowstr = base64.b64encode(line.replace(&apos;\n&apos;, &apos;&apos;)) #将明文用base64编码并将换行符去掉
+        equalnum = rowstr.count(&apos;=&apos;) # ‘=’的数量
+        if equalnum and len(bin_str):
+            offset = int(&apos;0b&apos;+bin_str[:equalnum * 2], 2) #equalnum * 2：可以隐写的位数
+            char = rowstr[len(rowstr) - equalnum - 1] #等号前一位字符
+            rowstr = rowstr.replace(char, base64chars[base64chars.index(char) + offset]) #
+            bin_str = bin_str[equalnum*2:] #丢弃前面已隐写的位
+        f1.write(rowstr + &apos;\n&apos;)</code></pre><h2 id="解密代码"><a href="#解密代码" class="headerlink" title="解密代码"></a>解密代码</h2><pre><code> -*- coding: cp936 -*-
+b64chars = &apos;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&apos;
+with open(&apos;1.txt&apos;, &apos;rb&apos;) as f:
+    bin_str = &apos;&apos; #空字符串
+    for line in f.readlines():
+        stegb64 = &apos;&apos;.join(line.split()) #以换行符分隔base64全文
+        rowb64 =  &apos;&apos;.join(stegb64.decode(&apos;base64&apos;).encode(&apos;base64&apos;).split()) 将其进行base64解码再进行编码
+        offset = abs(b64chars.index(stegb64.replace(&apos;=&apos;,&apos;&apos;)[-1])-b64chars.index(rowb64.replace(&apos;=&apos;,&apos;&apos;)[-1])) #将base64编码中的=去掉，并得到最后一个字符偏移
+        equalnum = stegb64.count(&apos;=&apos;) #no equalnum no offset
+        if equalnum:
+            bin_str += bin(offset)[2:].zfill(equalnum * 2)
+        print &apos;&apos;.join([chr(int(bin_str[i:i + 8], 2)) for i in xrange(0, len(bin_str), 8)]) #8 位一组</code></pre><p><a href="https://www.tr0y.wang/2017/06/14/Base64steg/" target="_blank" rel="noopener" title="参考文章">https://www.tr0y.wang/2017/06/14/Base64steg/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">base64-隐写</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/07/base64-%E9%9A%90%E5%86%99/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-新生赛writeup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/">新生赛writeup</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/" class="archive-article-date">
+  	<time datetime="2019-11-02T07:02:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="san-check"><a href="#san-check" class="headerlink" title="san check"></a>san check</h2><p><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/1.png" alt="picture1"><br>直接输入</p>
+<h2 id="littleRSA"><a href="#littleRSA" class="headerlink" title="littleRSA"></a>littleRSA</h2><p>文本就给了你flag，直接输入即可</p>
+<h2 id="Check-in"><a href="#Check-in" class="headerlink" title="Check in"></a>Check in</h2><p>在源代码里面可以找到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/2.png" alt="picture1"><br>进行base64编码：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/3.png" alt="picture1"><br>就得到了flag</p>
+<h2 id="ez-LFI"><a href="#ez-LFI" class="headerlink" title="ez LFI"></a>ez LFI</h2><p>给了一个提示：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/4.png" alt="picture1"><br>进入文件但不能得到flag：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/5.png" alt="picture1"><br>那我们就用php://filter来读取文件：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/6.png" alt="picture1"><br>得到一串编码:<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/7.png" alt="picture1"><br>对其进行base64编码得到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/8.png" alt="picture1"></p>
+<h2 id="Welcome-to-Aurora"><a href="#Welcome-to-Aurora" class="headerlink" title="Welcome to Aurora"></a>Welcome to Aurora</h2><p>页面提示要使用Aurora浏览器打开，所以我们就找到该浏览器并打开网页：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/9.png" alt="picture1"><br>就得到flag了</p>
+<h2 id="re-sighup"><a href="#re-sighup" class="headerlink" title="re_sighup"></a>re_sighup</h2><p>用IDA打开并查看代码：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/10.png" alt="picture1"><br>很容易知道下面就是flag字符串中的各个字符，跳转到相应的位置，可以编译处相应的字符：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/11.png" alt="picture1"><br>一一对应就可以得到flag了    </p>
+<h2 id="div"><a href="#div" class="headerlink" title="div"></a>div</h2><p>查看源代码：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/12.png" alt="picture1"><br>很简单，就是一个除法运算<br>再看看给的Readme：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/13.png" alt="picture1"><br>给出了一个用来test的N，下面就是一段汇编代码，大概意思就是将一个常熟和输入的参数相乘，再进行移位，再减去输入参数移位后的结果。<br>我们知道移一位相当于除以2，所以我们通过和源代码的对照，得到N=2^78/常熟-2^15,对结果进行验证刚好得到测试用的N。<br>所以我们可以进行解答，打开div.o文件：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/14.png" alt="picture1"><br>类似的，N=2^94/常熟-2^31<br>得到N=2333333333,所以flag为：<br>Aurora{2333333333};</p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><p><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/15.png" alt="picture1"><br>可以看到会对字符串s1和s2进行比较，所以只要找到s2的字符串就行了：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/16.png" alt="picture1"><br>很明显，这是一个base64编码的字符串，对其进行编码，得到：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/17.png" alt="picture1"><br>得到flag</p>
+<h2 id="ssti"><a href="#ssti" class="headerlink" title="ssti"></a>ssti</h2><p>之前已知没有注意题目，弄了很久不知道怎么办……后来看到题目ssti，查了以下就知道是模块注入了。<br>我们输入{ { } }，发现会被过滤掉了。<br>通过构造payload可以查看到全局变量：<br>{ {url_for.<strong>globals</strong>[‘current_app’].config.FLAG} }<br>输入提交得到:<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/18.png" alt="picture1"><br>再对其进行base4解码即可得到flag：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/19.png" alt="picture1">    </p>
+<h2 id="base64-stego"><a href="#base64-stego" class="headerlink" title="base64_stego"></a>base64_stego</h2><p>首先用base64解码发现是一段文章，但是里面并没有关于flag的直接信息，但是可以发现该题跟隐写有关。查找了以下资料发现了有关base64隐写的信息。<br>大概意思就是在编码的时候，会对数据进行分组而有多余的数据，这不会影响编码但是可以把需要隐藏的数据塞进去<br>直接上脚本（非本人所写）：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/20.png" alt="picture1"><br> 执行就可以得到flag：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/21.png" alt="picture1">    </p>
+<h2 id="bigRSA"><a href="#bigRSA" class="headerlink" title="bigRSA"></a>bigRSA</h2><p>在这里我们可以使用RsaCtftool进行解答：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/22.png" alt="picture1"><br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/23.png" alt="picture1"><br>得到密钥d:<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/24.png" alt="picture1"><br>得到了密钥就可以很容易得出明文了：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/25.png" alt="picture1"><br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/26.png" alt="picture1">       </p>
+<h2 id="网线鲨鱼"><a href="#网线鲨鱼" class="headerlink" title="网线鲨鱼"></a>网线鲨鱼</h2><p>用wireshark打开文件，使用http过滤包：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/27.png" alt="picture1"><br>因为是拦截的包，所以我们就可以想到应该要找post的包：<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/28.png" alt="picture1"><br>就可以找到flag了！<br><img src="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/29.png" alt="picture1">        </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/02/%E6%96%B0%E7%94%9F%E8%B5%9Bwriteup/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-透明代理、正向代理、反向代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/30/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E3%80%81%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E3%80%81%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">透明代理、正向代理、反向代理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/30/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E3%80%81%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E3%80%81%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="archive-article-date">
+  	<time datetime="2019-10-30T13:38:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-透明代理"><a href="#1-透明代理" class="headerlink" title="1.透明代理"></a>1.透明代理</h2><p><strong>定义</strong>：透明代理的意思是客户端根本不需要知道有代理服务器的存在，它改变你的request fields（报文），并会传送真实IP，多用于路由器的NAT转发中  </p>
+<p><strong>应用</strong>：防火墙<br>优点：防火墙本身也起到路由的作用，为用户安装防火墙的时候，需要考虑路由表。但使用透明代理，即采用无IP方式运行，用户就不必重新设定和修改路由器，防火墙可以直接安装和放置在网络中使用。类似于网桥的存在</p>
+<p><strong>工作示意图</strong>：<br><img src="/2019/10/30/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E3%80%81%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E3%80%81%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/1.png" alt="picture1"></p>
+<h2 id="2-正向代理（客户端）"><a href="#2-正向代理（客户端）" class="headerlink" title="2.正向代理（客户端）"></a>2.正向代理（客户端）</h2><p><strong>定义</strong>：相当于一个在客户端和服务器之间的中介。客户端向代理服务器发送一个请求并指定目标，然后代理服务器向原始服务器发送请求并将得到的内容返回给客户端。  </p>
+<p><strong>例子</strong>：国内的用户向使用谷歌会被阻拦，所以这个时候把请求发送到另一个代理服务器上，由其代为转发请求和接收响应内容<br><img src="/2019/10/30/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E3%80%81%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E3%80%81%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/2.png" alt="picture1"></p>
+<h2 id="3-反向代理（服务器端）"><a href="#3-反向代理（服务器端）" class="headerlink" title="3.反向代理（服务器端）"></a>3.反向代理（服务器端）</h2><p><strong>定义</strong>：类似于正向代理，它们的区别在于反向代理在服务器端，对于客户端来说，它们就是目标服务器。</p>
+<p>通常，反向代理用作web加速，即使用反向代理作为web服务器的前置机来降低网络和服务器的负载，提高访问效率</p>
+<p><img src="/2019/10/30/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E3%80%81%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E3%80%81%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/3.png" alt="picture1"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/30/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E3%80%81%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E3%80%81%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PHP伪协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/">PHP伪协议</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
+  	<time datetime="2019-10-27T15:22:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-PHP伪协议是什么？"><a href="#1-PHP伪协议是什么？" class="headerlink" title="1.PHP伪协议是什么？"></a>1.PHP伪协议是什么？</h2><p>PHP伪协议实际上就是支持的协议与封装协议</p>
+<h2 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h2><p>a.file:// ——访问本地文件系统<br>b.http://——访问HTTP(S)网址<br>c.ftp://——访问FTP(s)的URL<br>d.php://——访问各个输入、输出流<br>e.zlib://——压缩流<br>f.data://——数据<br>g.glob://——查找匹配的文件路径模式<br>h.phar://——PHP归档<br>i. ssh2:// — Secure Shell 2<br>j. rar:// — RAR<br>k. ogg:// — 音频流<br>l. expect:// — 处理交互式的流</p>
+<h2 id="3-环境概要"><a href="#3-环境概要" class="headerlink" title="3.环境概要"></a>3.环境概要</h2><p>PHP.ini:<br><strong>allow_url_fopen:on</strong>默认开启，激活了URL形式的fopen封装协议使得可以访问URL对象文件等<br><strong>allow_url_include:off</strong>  默认关闭，禁止引用URL文件</p>
+<h2 id="00X1-file"><a href="#00X1-file" class="headerlink" title="00X1 file://"></a>00X1 file://</h2><p><strong>说明</strong>：访问本地系统文件。<br>文件系统是PHP使用的默认封装协议，展现了本地文件系统。<br><strong>使用方法</strong>：file://[文件的绝对路径和文件名]<br><strong>封装协议概要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/2.PNG" alt="picture1"></p>
+<h2 id="00X2-http"><a href="#00X2-http" class="headerlink" title="00X2     http://"></a>00X2     http://</h2><p><strong>说明</strong>：访问HTTP网址<br><strong>封装协议概要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/3.PNG" alt="picture1"></p>
+<h2 id="00X3-ftp"><a href="#00X3-ftp" class="headerlink" title="00X3 ftp://"></a>00X3 ftp://</h2><p><strong>说明</strong>：允许通过FTP读取存在的文件，以及创建新的文件。打开文件后，既可以读也可以写，但不能同时进行。<br><strong>用法</strong>：<a href="ftp://example.com/pub/file.txt" target="_blank" rel="noopener">ftp://example.com/pub/file.txt</a><br><a href="ftp://user:password@example.com/pub/file.txt" target="_blank" rel="noopener">ftp://user:password@example.com/pub/file.txt</a><br><strong>封装协议概要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/4.PNG" alt="picture1"></p>
+<h2 id="00X4-php"><a href="#00X4-php" class="headerlink" title="00X4 php://"></a>00X4 php://</h2><p><strong>说明</strong>：PHP 提供了一些杂项输入/输出（IO）流，允许访问 PHP 的输入输出流、标准输入输出和错误描述符， 内存中、磁盘备份的临时文件流以及可以操作其他读取写入文件资源的过滤器。 </p>
+<h3 id="a-php-stdin、php-stdout、php-stderr"><a href="#a-php-stdin、php-stdout、php-stderr" class="headerlink" title="a.php://stdin、php://stdout、php://stderr"></a>a.php://stdin、php://stdout、php://stderr</h3><p>允许直接访问PHP进程相应的输入或输出流。<br>php://stdin是只读；php://stdout和php://stderr是只写的</p>
+<h3 id="b-php-input"><a href="#b-php-input" class="headerlink" title="b.php://input"></a>b.php://input</h3><p>访问<strong>请求</strong>的原始数据的只读流。（针对POST请求）</p>
+<h3 id="c-php-output"><a href="#c-php-output" class="headerlink" title="c.php://output"></a>c.php://output</h3><p>只写的数据流，允许以<strong>print</strong>和<strong>echo</strong>一样的方式写入到输出缓冲区</p>
+<h3 id="d-php-fd"><a href="#d-php-fd" class="headerlink" title="d.php://fd"></a>d.php://fd</h3><p>允许直接访问指定的文件描述符。如php://fd/3引用了文件描述符3</p>
+<h3 id="e-php-filter"><a href="#e-php-filter" class="headerlink" title="e.php://filter"></a>e.php://filter</h3><p>是一种元封装器，设计用于数据流打开时的筛选过滤应用。<br>参数：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/5.PNG" alt="picture1"></p>
+<h3 id="封装协议摘要"><a href="#封装协议摘要" class="headerlink" title="封装协议摘要"></a>封装协议摘要</h3><p><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/6.PNG" alt="picture1"></p>
+<h2 id="00X5-zlib-–bzip2-–zip"><a href="#00X5-zlib-–bzip2-–zip" class="headerlink" title="00X5 zlib://–bzip2://–zip://"></a>00X5 zlib://–bzip2://–zip://</h2><p><strong>用法</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/7.PNG" alt="picture1"><br>zip://[文件路径和文件名]<br><strong>封装协议摘要</strong>：<br><img src="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/8.PNG" alt="picture1"></p>
+<p><a href="https://www.php.net/manual/zh/wrappers.php" target="_blank" rel="noopener" title="官方参考手册">https://www.php.net/manual/zh/wrappers.php</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/27/PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-bugku-misc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/27/bugku-misc/">write-up</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/27/bugku-misc/" class="archive-article-date">
+  	<time datetime="2019-10-27T08:55:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="隐写"><a href="#隐写" class="headerlink" title="隐写"></a>隐写</h2><p>打开图片：<br><img src="/2019/10/27/bugku-misc/1.png" alt="picture1"><br>没发现什么有用的信息<br>用winhex打开：<br><img src="/2019/10/27/bugku-misc/2.png" alt="picture1"><br>是一张PNG图片，检查格式也没有问题。<br>所以应该flag就在图像里面<br>再看以下图像的其他属性，可能是高宽不对。修改高为宽的高度即可得到完整的图像：<br><img src="/2019/10/27/bugku-misc/3.png" alt="picture1"></p>
+<h2 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h2><p>打开文件发现后缀名是pcap，是常用的数据报存储格式。查找了一下，这里我们可以用wireshark打开：<br><img src="/2019/10/27/bugku-misc/4.png" alt="picture1"><br>再追踪TCP流就可以得到flag了：<br><img src="/2019/10/27/bugku-misc/5.png" alt="picture1"></p>
+<h2 id="眼见非实"><a href="#眼见非实" class="headerlink" title="眼见非实"></a>眼见非实</h2><p>打开文件，是一个后缀名为docx的文件，打开，发现不对。提示要修复文档，所以应该文件后缀名被改了。再把它放进winhex里去：<br><img src="/2019/10/27/bugku-misc/6.png" alt="picture1"><br>得到它的文件头为 50 4B 03 04 ，查一下常见的文件头形式，就可以找到该文件应该是zip文件。该后缀，解压，得到一个文件夹。在文件夹里面有一个document.xml的文件，打开就可以得到flag了：<br><img src="/2019/10/27/bugku-misc/7.png" alt="picture1"></p>
+<h2 id="啊哒"><a href="#啊哒" class="headerlink" title="啊哒"></a>啊哒</h2><p>打开文件，是一个图片。<br>用winhex打开，审视一下文本，查找一下flag可以找到一个flag.txt。猜想可能有一个flag的文本在图片里面，在linux里面用foremost命令分离文件：<br><img src="/2019/10/27/bugku-misc/8.png" alt="picture1"><br>在output里面可以找到一个压缩包，我们对其进行解压：<br><img src="/2019/10/27/bugku-misc/9.png" alt="picture1"><br>得到flag.txt，需要输入密码。我们再查看一下图片的属性：<br><img src="/2019/10/27/bugku-misc/10.png" alt="picture1"><br>有一串照相机型号，输入这个型号，不过是错误的密码。应该是对其进行了编码，再对其进行hex编码：<br><img src="/2019/10/27/bugku-misc/12.png" alt="picture1"><br>得到密码，输入即可得到flag：<br><img src="/2019/10/27/bugku-misc/11.png" alt="picture1"></p>
+<h2 id="又一张图片，还单纯吗"><a href="#又一张图片，还单纯吗" class="headerlink" title="又一张图片，还单纯吗"></a>又一张图片，还单纯吗</h2><p>直接在linux环境中用foremost命令处理图片即可，得到另外一张图片：<br><img src="/2019/10/27/bugku-misc/13.jpg" alt="picture1"><br>这就是flag</p>
+<h2 id="猜"><a href="#猜" class="headerlink" title="猜"></a>猜</h2><p>既然让我们猜且flag是个人名，我们直接百度图片就可以了。发现是刘亦菲……flag就是key{liuyifei}</p>
+<h2 id="宽带信息泄露"><a href="#宽带信息泄露" class="headerlink" title="宽带信息泄露"></a>宽带信息泄露</h2><p>上网查找一下关于bin文件的信息，发现是路由器备份的配置文件，要用routerpassview来打开。下载一个，并打开文件：<br><img src="/2019/10/27/bugku-misc/13.png" alt="picture1"><br>题目提示答案是宽带用户名，直接查找用户名即可得到flag：<br><img src="/2019/10/27/bugku-misc/14.png" alt="picture1">   </p>
+<h2 id="隐写2"><a href="#隐写2" class="headerlink" title="隐写2"></a>隐写2</h2><p>把图片放到winhex里发现似乎有一个文件在里面，用foremost命令对图片进行处理，得到一张图片和一个压缩文件：<br><img src="/2019/10/27/bugku-misc/15.png" alt="picture1"><br>解压文件发现需要密码，而在提示里面应该可以解出密码，但尝试了几次，以为密码是KQJ但是并不行。上网查了一下，都是用暴力破解法，直到看到一个人说是键盘上k，j，q分别对应的数字！！！密码是871<br>输入，得到一张图片：<br><img src="/2019/10/27/bugku-misc/16.jpg" alt="picture1"><br>用winhex打开，在末尾找到flag：<br><img src="/2019/10/27/bugku-misc/17.png" alt="picture1"><br>输入但发现不正确，可能是经过了编码。使用base64解码得到真正的flag：<br> <img src="/2019/10/27/bugku-misc/18.png" alt="picture1"> </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">bugku-misc write-up</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/27/bugku-misc/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-bugku" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -290,7 +719,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PHP Mail注入</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
         		</li>
       		
 		</ul>
@@ -524,27 +953,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">SQL约束攻击</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PHP Mail注入</a>
+                <a href="javascript:void(0)" class="js-tag color4">PHP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DNS记录类型</a>
+                <a href="javascript:void(0)" class="js-tag color3">Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">PHP伪协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">linux dig命令</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,7 +973,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">base64-隐写</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,11 +985,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">透明代理、正向代理、反向代理</a>
+                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bugku web write-up</a>
+                <a href="javascript:void(0)" class="js-tag color5">base64-隐写</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hackergame2019</a>
               </li>
             
             <div class="clearfix"></div>
